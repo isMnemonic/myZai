@@ -3,15 +3,29 @@ import it.sauronsoftware.cron4j.*;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+final class TokenHandler {
+	private final String PUBLIC_KEY;
+	private final String PRIVATE_KEY;
+	private final String TOKEN;
+	private final String TOKEN_SECRET;
+	
+	public TokenHandler( String Public_Key, String Private_Key, String Token, String Token_Secret) {
+		this.PUBLIC_KEY = Public_Key;
+		this.PRIVATE_KEY = Private_Key;
+		this.TOKEN = Token;
+		this.TOKEN_SECRET = Token_Secret;
+	}
+}
+
 @WebService()
 public class TellstickReplayWebService {
+	
+	public enum SessionStates {
+		PUBLIC_KEY, PRIVATE_KEY, TOKEN, TOKEN_SECRET
+	}
 
 	public TellstickReplayWebService() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public enum SessionState {
-		
 	}
 	
 	@WebMethod()
