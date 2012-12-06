@@ -19,6 +19,10 @@ public class TellstickReplayCore {
 		void tdReleaseString( char string );
 	}
 	
+	public class TellstickDevice{
+		public TellstickDevice() {}
+	}
+	
 	public enum Methods{
 		TELLSTICK_TURNON, TELLSTICK_TURNOFF, TELLSTICK_BELL
 	}
@@ -40,8 +44,15 @@ public class TellstickReplayCore {
 		
 	}
 	
-	private void checkDeviceFeatures( int id ){
-		
+	private boolean checkDeviceFeatures( int id ){
+		boolean value;
+		try {
+			
+		}
+		catch( Exception exp ){
+			
+		}
+		return value;
 	}
 	
 	private boolean DimDeviceById( int id ) {
