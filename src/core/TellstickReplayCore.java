@@ -1,4 +1,6 @@
 import java.io.*;
+import java.lang.invoke.ConstantCallSite;
+
 import it.sauronsoftware.cron4j.*;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -11,20 +13,83 @@ public class TellstickReplayCore {
 		void tdClose();
 		int tdTurnOn( int deviceId );
 		int tdTurnOff( int deviceId );
-		int tdSensor( byte[] protocol, int protocolLength, byte[] model, int modelLength, IntByReference id,IntByReference dataTypes );
-		int tdSensorValue(byte[] protocol, byte[] model, int id, int dataType, byte[] value, int valueLength, IntByReference timestamp);
+		int tdSensor( char protocol, int protocolLen, char model, int modelLen, int id, int dataTypes );
+		int tdSensorValue( char protocol, char model, int id, int dataType, char value, int len, int timestamp );
+		int tdController( int controllerId, int controllerType, char name, int nameLen, int available );
+		int tdControllerValue( int controllerId, char name, char value, int valueLen );
+		int tdSetControllerValue( int controllerId, char name, char value );
+		int tdRemoveController( int controllerId );
 		int tdGetNumberOfDevices();
 		int tdGetDeviceId( int deviceId );
+		int tdGetDeviceType( int deviceId );
 		char tdGetName( int deviceId );
+		boolean tdSetName( int deviceId, char name );
+		char tdGetProtocol( int deviceId );
+		boolean tdSetProtocol( int deviceId, char protocol );
+		char tdGetModel( int deviceId );
+		boolean tdSetModel( int deviceId, char model );
+		boolean tdSetDeviceParameter( int deviceId, char name, char value );
+		char tdGetDeviceParameter( int deviceId, char name, char defaultValue );
+		int tdAddDevice();
+		boolean tdRemoveDevice( int deviceId );
+		int tdMethods( int id, int methodsSupported );
+		char tdGetErrorString( int errorNumber );
+		int tdSendRawCommand( char command, int reserved );
+		void tdSendRawCommand( int vid, int pid, char serial );
+		void tdConnectTellstickController( int vid, int pid, char serial );
+		void tdDisconnectTellstickController( int vid, int pid, char serial );				
 		void tdReleaseString( char string );
+		int tdBell( int deviceId );
+		int tdDim( int deviceId, char level );
+		int tdExecute( int deviceId );
+		int tdUp( int deviceId );
+		int tdDown( int deviceId );
+		int tdStop( int deviceId );
+		int tdLearn( int deviceId );
+		int tdLastSentCommand( int deviceId, int methodSupported );
+		char tdLastSentValue( int deviceId );
+		
 	}
 	
 	public class TellstickDevice{
-		public TellstickDevice() {}
+		private final int id;
+		private final char name;
+		private final char model;
+		private final char protocol;
+		
+		private final Methods[] supported;
+		
+		public TellstickDevice( int _id, char _name, char _model, char _protocol, Methods[] _supported ) {
+			this.id = _id;
+			this.name = _name;
+			this.model = _model;
+			this.protocol = _protocol;
+			this.supported = _supported;
+		}
+		
+		public int getId() {
+			return id;
+		}
+
+		public char getName() {
+			return name;
+		}
+		
+		public char getMode() {
+			return model;
+		}
+		
+		public char getProtocol() {
+			return protocol;
+		}
+
+		public Methods[] getSupported() {
+			return supported;
+		}
 	}
 	
 	public enum Methods{
-		TELLSTICK_TURNON, TELLSTICK_TURNOFF, TELLSTICK_BELL
+		TELLSTICK_TURNON, TELLSTICK_TURNOFF, TELLSTICK_BELL, CheckDeviceFeatures, DimDeviceById, DimDeviceByGroup, TurnDeviceOffById
 	}
 	
 	public static void main(String[] args) {
@@ -44,29 +109,47 @@ public class TellstickReplayCore {
 		
 	}
 	
-	private boolean checkDeviceFeatures( int id ){
-		boolean value;
+	private boolean CheckDeviceFeatures( int id ){
+		boolean value = false;
 		try {
-			
+			value = true;
 		}
 		catch( Exception exp ){
-			
+			value = false;
 		}
 		return value;
 	}
 	
 	private boolean DimDeviceById( int id ) {
-		
-		return false;
+		boolean value = false;
+		try {
+			value = true;
+		}
+		catch( Exception exp ){
+			value = false;
+		}
+		return value;
 	}
 	
 	private boolean DimDeviceByGroup( String name ) {
-		
-		return false;
+		boolean value = false;
+		try {
+			value = true;
+		}
+		catch( Exception exp ){
+			value = false;
+		}
+		return value;
 	}
 	
 	private boolean TurnDeviceOffById( int id ){
-		
-		return false;
+		boolean value = false;
+		try {
+			value = true;
+		}
+		catch( Exception exp ){
+			value = false;
+		}
+		return value;
 	}
 }
