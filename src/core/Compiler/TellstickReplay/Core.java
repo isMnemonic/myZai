@@ -1,3 +1,5 @@
+package Compiler.TellstickReplay;
+
 import it.sauronsoftware.cron4j.*;
 
 import com.sun.jna.Library;
@@ -6,7 +8,7 @@ import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.*;
 
-public class TellstickReplayCore {
+public class Core {
 	
 	public interface CLibrary extends Library{
 		void tdInit();
@@ -92,9 +94,11 @@ public class TellstickReplayCore {
 		TELLSTICK_TURNON, TELLSTICK_TURNOFF, TELLSTICK_BELL, CheckDeviceFeatures, DimDeviceById, DimDeviceByGroup, TurnDeviceOffById
 	}
 	
+	public Core() { }
+	
 	public static void main(String[] args) {
 
-		CLibrary libTelldus = (CLibrary)Native.loadLibrary("TelldusCore", CLibrary.class);
+		CLibrary libTelldus = (CLibrary)Native.loadLibrary("telldus-core", CLibrary.class);
 		
 		libTelldus.tdInit(); 										//Initiate the telldus api.
 		
