@@ -1,9 +1,9 @@
-import java.io.*;
-import java.lang.invoke.ConstantCallSite;
-
 import it.sauronsoftware.cron4j.*;
+
 import com.sun.jna.Library;
+import com.sun.jna.Memory;
 import com.sun.jna.Native;
+import com.sun.jna.Pointer;
 import com.sun.jna.ptr.*;
 
 public class TellstickReplayCore {
@@ -13,8 +13,8 @@ public class TellstickReplayCore {
 		void tdClose();
 		int tdTurnOn( int deviceId );
 		int tdTurnOff( int deviceId );
-		int tdSensor( char protocol, int protocolLen, char model, int modelLen, int id, int dataTypes );
-		int tdSensorValue( char protocol, char model, int id, int dataType, char value, int len, int timestamp );
+		int tdSensor( char protocol, int protocolLen, String model, int modelLen, int id, int dataTypes );
+		int tdSensorValue( String protocol, String model, int id, int dataType, String value, int len, int timestamp );
 		int tdController( int controllerId, int controllerType, char name, int nameLen, int available );
 		int tdControllerValue( int controllerId, String name, String value, int valueLen );
 		int tdSetControllerValue( int controllerId, String name, String value );
@@ -22,11 +22,11 @@ public class TellstickReplayCore {
 		int tdGetNumberOfDevices();
 		int tdGetDeviceId( int deviceId );
 		int tdGetDeviceType( int deviceId );
-		String tdGetName( int deviceId );
+		Pointer tdGetName( int deviceId );
 		boolean tdSetName( int deviceId, String name );
 		String tdGetProtocol( int deviceId );
 		boolean tdSetProtocol( int deviceId, String protocol );
-		char tdGetModel( int deviceId );
+		String tdGetModel( int deviceId );
 		boolean tdSetModel( int deviceId, String model );
 		boolean tdSetDeviceParameter( int deviceId, String name, String value );
 		String tdGetDeviceParameter( int deviceId, String name, String defaultValue );
@@ -38,7 +38,7 @@ public class TellstickReplayCore {
 		void tdSendRawCommand( int vid, int pid, String serial );
 		void tdConnectTellstickController( int vid, int pid, String serial );
 		void tdDisconnectTellstickController( int vid, int pid, String serial );				
-		void tdReleaseString( String value );
+		void tdReleaseString( Pointer value );
 		int tdBell( int deviceId );
 		int tdDim( int deviceId, String level );
 		int tdExecute( int deviceId );
@@ -96,17 +96,27 @@ public class TellstickReplayCore {
 
 		CLibrary libTelldus = (CLibrary)Native.loadLibrary("TelldusCore", CLibrary.class);
 		
-		libTelldus.tdInit(); 									//Initiate the telldus api.
+		libTelldus.tdInit(); 										//Initiate the telldus api.
 		
-		int nrOfDevices = libTelldus.tdGetNumberOfDevices();	//Test: list devices.
-		for ( int i = 0; i < nrOfDevices; i++ ) {				//Initiate loop.
-			int id = libTelldus.tdGetDeviceId( i );				//Retrives the unique id on current index.
-			String name = libTelldus.tdGetName( id );			//Retrives the name of the device by unique id.
-			System.out.println( name );							//Simple printline. To be removed.
-			libTelldus.tdReleaseString( name );					//Release the resource in 'char name'
+		int nrOfDevices = libTelldus.tdGetNumberOfDevices();		//Test: list devices.
+		
+		for ( int i = 0; i < nrOfDevices; i++ ) {					//Initiate loop.
+			int id = libTelldus.tdGetDeviceId( i );					//Retrives the unique id on current index.
+			System.out.println( id );
+			Pointer pointerToName = libTelldus.tdGetName( id );		//Retrives the name of the device by unique id.
+			String name = pointerToName.getString(0);
+			//name = name.substring(0, name.indexOf(0));
+			System.out.println( name );								//Simple printline. To be removed.
+			String protocol = libTelldus.tdGetProtocol( id );
+			System.out.println( protocol );
+			String model = libTelldus.tdGetModel( id );
+			System.out.println( model );
+			Memory memory = new Memory( name.length());
+			memory.write(0, name.getBytes(), 0, name.length());
+			libTelldus.tdReleaseString( pointerToName );					//Release the resource in 'char name'
 		}
 		
-		libTelldus.tdClose(); 		
+		libTelldus.tdClose();
 		
 	}
 	
