@@ -1,5 +1,6 @@
 package Compiler.TellstickReplay;
 
+import Compiler.TellstickReplay.*;
 import it.sauronsoftware.cron4j.*;
 
 import com.sun.jna.Library;
@@ -9,6 +10,8 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.*;
 
 public class Core {
+	
+	final TellstickReplayHandler handler;
 	
 	public interface CLibrary extends Library{
 		void tdInit();
@@ -53,52 +56,12 @@ public class Core {
 		
 	}
 	
-	public class TellstickDevice{
-		private final int id;
-		private final String name;
-		private final String model;
-		private final String protocol;
-		
-		private final Methods[] supported;
-		
-		public TellstickDevice( int _id, String _name, String _model, String _protocol, Methods[] _supported ) {
-			this.id = _id;
-			this.name = _name;
-			this.model = _model;
-			this.protocol = _protocol;
-			this.supported = _supported;
-		}
-		
-		public int getId() {
-			return id;
-		}
-
-		public String getName() {
-			return name;
-		}
-		
-		public String getMode() {
-			return model;
-		}
-		
-		public String getProtocol() {
-			return protocol;
-		}
-
-		public Methods[] getSupported() {
-			return supported;
-		}
-	}
-	
-	public enum Methods{
-		TELLSTICK_TURNON, TELLSTICK_TURNOFF, TELLSTICK_BELL, CheckDeviceFeatures, DimDeviceById, DimDeviceByGroup, TurnDeviceOffById
-	}
-	
 	public Core() { }
 	
 	public static void main(String[] args) {
-
-		CLibrary libTelldus = (CLibrary)Native.loadLibrary("telldus-core", CLibrary.class);
+		
+		
+		/*CLibrary libTelldus = (CLibrary)Native.loadLibrary("telldus-core", CLibrary.class);
 		
 		libTelldus.tdInit(); 										//Initiate the telldus api.
 		
@@ -120,7 +83,7 @@ public class Core {
 			libTelldus.tdReleaseString( pointerToName );					//Release the resource in 'char name'
 		}
 		
-		libTelldus.tdClose();
+		libTelldus.tdClose();*/
 		
 	}
 	
