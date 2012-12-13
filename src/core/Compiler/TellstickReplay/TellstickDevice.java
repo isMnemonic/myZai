@@ -1,5 +1,9 @@
 package Compiler.TellstickReplay;
 
+/**
+ * @author Mnemonic
+ *
+ */
 public class TellstickDevice {
 	private final int id;
 	private final String name;
@@ -8,7 +12,7 @@ public class TellstickDevice {
 	
 	private final TellstickMethods[] supported;
 	
-	public TellstickDevice( int _id, String _name, String _model, String _protocol, Methods[] _supported ) {
+	public TellstickDevice( int _id, String _name, String _model, String _protocol, TellstickMethods[] _supported ) {
 		this.id = _id;
 		this.name = _name;
 		this.model = _model;
