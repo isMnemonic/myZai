@@ -7,7 +7,7 @@ import com.sun.jna.Library;
 import com.sun.jna.Pointer;
 
 /**
- * @author Mnemonic
+ * @author Per Fransman
  *
  */
 public interface CLibrary extends Library {
