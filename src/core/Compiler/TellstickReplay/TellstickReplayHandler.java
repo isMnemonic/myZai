@@ -101,7 +101,8 @@ public class TellstickReplayHandler {
 	 * Description: Method 'DimDeviceById' dims the device with the supplied level.
 	 * @param id
 	 * @param level
-	 * @return
+	 * @return 'boolean' value of 'true' if the device was succesfully dimmed to the applied level or
+	 * 'false' if it was unable to dim the device.
 	 */
 	public boolean DimDeviceById( int id, int level ) {
 		boolean value = false;
@@ -123,7 +124,8 @@ public class TellstickReplayHandler {
 	 * Description: Method 'DimDeviceByGroup' dims all devices in the group and by the supplied level.
 	 * @param name
 	 * @param level
-	 * @return
+	 * @return 'boolean' value of 'true' if the group was succesfully dimmed to the applied level or
+	 * 'false' if it was unable to dim the group.
 	 */
 	public boolean DimDeviceByGroup( String name, int level ) {
 		boolean value = false;

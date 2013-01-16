@@ -3,18 +3,33 @@ Database structure:
 Table: 	system
 Fields:	os			Linux|Windows7|Windows8|Mac		Operating system TellstickReplay is being runned on.
 		tellstick	Basic|Duo|Net					The type of tellstick device being used.
-		offline		TRUE|FALSE:						'true' if Telldus Live! API is not available.
-		initiated:	TRUE|FALSE:						'true' if initial setup has been preformed.
+		offline		TRUE|FALSE						'true' if Telldus Live! API is not available.
+		initiated	TRUE|FALSE						'true' if initial setup has been preformed.
 
-Table: 	devices
-Fields:	id
-		name
-		protocol
-		model
-		connectedToGroup
-		
+Table: 	device
+Fields:	id 			INT | NOT NULL | row id.
+		Name 		STRING | NOT NULL | device name.
+		protocol	STRING | NOT NULL | protocol running the device.
+		model 		STRING | NOT NULL | manufacturer model.
+		description STRING | Optional | description of the device.
 
-Table: 	groups
-Fields:	id
-		name
-		connectedDevicesId
+Table: 	group
+Fields:	id 			INT | NOT NULL | row id.
+		name 		STRING | NOT NULL | name of the group.
+		description STRING | Optional | description of the group.
+
+Table:	groups_devices
+Fields:	id 			INT | NOT NULL | row id.
+		device_id	INT | NOT NULL | id of connected device.
+		group_id 	INT | NOT NULL | id of connected group.
+
+Table:	status
+Fields:	id 			INT | NOT NULL | row id.
+		name		STRING | Name of the status flag.
+		status		TRUE | FALSE | boolean value of status flag
+.
+Table:	status_devices_groups
+Fields:	id 			INT | NOT NULL | row id.
+		status_id	INT | NOT NULL | id of status flag.
+		device_id	INT | Optional | NULL if group_id is supplied.
+		group_id	INT | Optional | NULL if device_id is supplied.

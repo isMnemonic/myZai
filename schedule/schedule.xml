@@ -1,0 +1,45 @@
+# Tellstick Replay! Offline Schedule Configuration
+# ------------------------------------------------
+# This file is autoconfigured by Tellstick Replay!
+# Changes in this file *WILL NOT* be reverted to
+# the database.
+# ------------------------------------------------
+# Author: Per Fransman
+#
+# Example configuration
+# id: int
+# type: device|group
+# name: string
+# description: string
+# : * * * * * : ACTION( mandatory ) | VALUE( used for dim action )
+
+<configuration>
+	<id value="1" />
+	<type value="device" />
+	<name value="Nexa: Hallway" />
+	<description value="handles Nexa lamp in the hallway." />
+	<schedules>
+		<task action="TURN_ON">30 5 * * 1-5</task>
+		<task action="TURN_OFF">0 8 * * 1-5</task>
+		<task action="DIM" value="50">30 16 * * 1-5</task>
+		<task action="DIM" value="100">0 18 * * 1-5</task>
+		<task action="DIM" value="10">0 22 * * 1-5</task>
+		<task action="TURN_OFF">0 24 * * 1-5</task>
+	</schedules>
+</configuration>
+
+<configuration>
+	<id value="2" />
+	<type value="group" />
+	<containers>
+		<id value="3" />
+		<id value="4" />
+		<id value="5" />
+	</containers>
+	<name value="Nexa: Power Switches" />
+	<description value="handles all Nexa power switches." />
+	<schedules>
+		<task action="TURN_OFF">0 8 * * 1-5</task>
+		<task action="TURN_ON">30 16 * * 1-5</task>
+	</schedules>
+</configuration>
