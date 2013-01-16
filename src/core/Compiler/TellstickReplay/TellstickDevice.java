@@ -1,7 +1,7 @@
 package Compiler.TellstickReplay;
 
 /**
- * @author Mnemonic
+ * @author Per Fransman
  *
  */
 public class TellstickDevice {

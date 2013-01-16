@@ -1,7 +1,7 @@
 package Compiler.TellstickReplay;
 
 /**
- * @author Mnemonic
+ * @author Per Fransman
  *
  */
 public enum TellstickSystems { Windows7, Windows8, Linux, Mac }

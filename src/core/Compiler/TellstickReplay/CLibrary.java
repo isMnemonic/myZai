@@ -8,7 +8,7 @@ import com.sun.jna.Pointer;
 
 /**
  * @author Per Fransman
- *
+ * Class description: C++ Extension mapping all available methods from Telldus API.
  */
 public interface CLibrary extends Library {
 	void tdInit();
