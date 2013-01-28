@@ -1,0 +1,9 @@
+Priorities:
+* compile project into jar file on RPi
+	* test run.
+* add schema with minimum of three commands to tellstick
+	* test run.
+
+Todo:
+* install telldus core on RPi
+* install java8 beta on RPi
