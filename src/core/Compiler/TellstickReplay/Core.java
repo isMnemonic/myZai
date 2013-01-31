@@ -9,7 +9,9 @@ public class Core {
 	/**
 	 * Method: Core. Main constructor.
 	 */
-	public Core() { }
+	public Core() {
+		
+	}
 	
 	/**
 	 * Method: Main. Program start from console. Primary used in console enviroments.

@@ -4,7 +4,6 @@ import Compiler.TellstickReplay.TellstickSystems;
 import Compiler.TellstickReplay.TellstickScheduler;
 
 import com.sun.jna.Native;
-
 /**
  * @author Per Fransman
  *
