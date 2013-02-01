@@ -78,7 +78,7 @@ public class TellstickReplayHandler {
 	/**
 	 * Method: Method 'CheckDeviceFeatures' checks supplied device id for supported features.
 	 * @param id
-	 * @return
+	 * @return 'boolean' value of 'true' if the supplied 'id' has the 
 	 */
 	public boolean CheckDeviceFeatures( int id ){
 		boolean value = false;

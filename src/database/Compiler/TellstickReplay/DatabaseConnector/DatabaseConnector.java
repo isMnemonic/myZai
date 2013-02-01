@@ -3,6 +3,9 @@
  */
 package Compiler.TellstickReplay.DatabaseConnector;
 
+import com.mysql.*;
+import com.mysql.jdbc.*;
+
 /**
  * @author Per Fransman
  *
@@ -22,6 +25,13 @@ public class DatabaseConnector {
 		this.setDatabase("TellstickReplay");
 		this.setUid("tellstick");
 		this.setPwd("replay");
+		this.setConnection("jdbc:mysql://localhost:3306/TellstickReplay");
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO : Update logging
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -30,7 +40,7 @@ public class DatabaseConnector {
 	 * @param _uid
 	 * @param _pwd
 	 */
-	public DatabaseConnector( String _database, String _uid, String _pwd ){
+	public DatabaseConnector( String _database, String _uid, String _pwd ) {
 		this.setDatabase(_database);
 		this.setUid(_uid);
 		this.setPwd(_pwd);

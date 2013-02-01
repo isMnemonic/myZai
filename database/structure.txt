@@ -1,35 +1,56 @@
 Database structure:
 
+Random Table prefix: cyxl_
+
 Table: 	system
-Fields:	os			Linux|Windows7|Windows8|Mac		Operating system TellstickReplay is being runned on.
-		tellstick	Basic|Duo|Net					The type of tellstick device being used.
-		offline		TRUE|FALSE						'true' if Telldus Live! API is not available.
-		initiated	TRUE|FALSE						'true' if initial setup has been preformed.
+Fields:	os			VARCHAR(10) | NOT NULL : Linux|Windows7|Windows8|Mac		Operating system TellstickReplay is being runned on.
+		tellstick	VARCHAR(10) | NOT NULL : Basic|Duo|Net						The type of tellstick device being used.
+		offline		BIT(1) | NOT NULL : TRUE|FALSE								'true' if Telldus Live! API is not available.
+		initiated	BIT(1) | NOT NULL : TRUE|FALSE								'true' if initial setup has been preformed.
 
 Table: 	device
-Fields:	id 			INT | NOT NULL | row id.
-		Name 		STRING | NOT NULL | device name.
-		protocol	STRING | NOT NULL | protocol running the device.
-		model 		STRING | NOT NULL | manufacturer model.
-		description STRING | Optional | description of the device.
+Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
+		name 		VARCHAR(100) | NOT NULL | : 								device name.
+		protocol	VARCHAR(25) | NOT NULL | : 									protocol running the device.
+		model 		VARCHAR(25) | NOT NULL | : 									manufacturer model.
+		description TEXT | Optional | : 										description of the device.
 
 Table: 	group
-Fields:	id 			INT | NOT NULL | row id.
-		name 		STRING | NOT NULL | name of the group.
-		description STRING | Optional | description of the group.
+Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
+		name 		VARCHAR(25) | NOT NULL | : 									name of the group.
+		description TEXT | Optional | : 										description of the group.
 
 Table:	groups_devices
-Fields:	id 			INT | NOT NULL | row id.
-		device_id	INT | NOT NULL | id of connected device.
-		group_id 	INT | NOT NULL | id of connected group.
+Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
+		device_id	INT | NOT NULL | UNIQUE KEY | : 							id of connected device.
+		group_id 	INT | NOT NULL | UNIQUE KEY | :								id of connected group.
 
 Table:	status
-Fields:	id 			INT | NOT NULL | row id.
-		name		STRING | Name of the status flag.
-		status		TRUE | FALSE | boolean value of status flag
+Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
+		name		VARCHAR(25) | NOT NULL : 									Name of the status flag.
+		status		BIT(1) | NOT NULL : TRUE | FALSE | : 						boolean value of status flag
+		description TEXT | Optional :
 .
 Table:	status_devices_groups
-Fields:	id 			INT | NOT NULL | row id.
-		status_id	INT | NOT NULL | id of status flag.
-		device_id	INT | Optional | NULL if group_id is supplied.
-		group_id	INT | Optional | NULL if device_id is supplied.
+Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
+		status_id	INT | NOT NULL | UNIQUE KEY : 								id of status flag.
+		device_id	INT | Optional : 											NULL if group_id is supplied.
+		group_id	INT | Optional : 											NULL if device_id is supplied.
+		description TEXT | Optional :											description of the status.
+
+
+Table Installation Script:
+
+CREATE TABLE cyxl_system(os VARCHAR(10) NOT NULL, tellstick VARCHAR(10) NOT NULL, offline BIT(1) NOT NULL, initiated BIT(1) NOT NULL);
+CREATE TABLE cyxl_device(id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, name VARCHAR(100) NOT NULL, protocol VARCHAR(25) NOT NULL, model VARCHAR(25) NOT NULL, description TEXT, PRIMARY KEY( id ) );
+CREATE TABLE cyxl_group( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, name VARCHAR(25) NOT NULL, description TEXT, PRIMARY KEY( id ) );
+CREATE TABLE cyxl_groups_devices( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, device_id INT NOT NULL UNIQUE KEY, group_id INT NOT NULL UNIQUE KEY, PRIMARY KEY( id ) );
+CREATE TABLE cyxl_status( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, name VARCHAR(25) NOT NULL, status BIT(1) NOT NULL );
+CREATE TABLE cyxl_status_devices_groups( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, status_ID INT NOT NULL UNIQUE KEY, device_id INT UNIQUE KEY, group_id INT UNIQUE KEY, description TEXT );
+
+Data Installation Script
+
+INSERT INTO cyxl_system(os, tellstick, offline, initiated) VALUES('Linux', 'Basic', 1, 1);
+INSERT INTO cyxl_device( name, protocol, model, description) VALUES( 'Example #1', 'archtech', 'Nexa', 'This is onlya demo lamp');
+INSERT INTO cyxl_group( name, description ) VALUES('All lamps', 'Example group only.');
+INSERT INTO cyxl_groups_devices( device_id, group_id ) VALUES(1, 1);
