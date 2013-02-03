@@ -1,9 +1,8 @@
 package Compiler.TellstickReplay;
 
-import Compiler.TellstickReplay.TellstickSystems;
-import Compiler.TellstickReplay.TellstickScheduler;
-
+import com.sun.jna.*;
 import com.sun.jna.Native;
+
 /**
  * @author Per Fransman
  *
