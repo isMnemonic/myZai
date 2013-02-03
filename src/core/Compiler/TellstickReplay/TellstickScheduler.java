@@ -21,7 +21,7 @@ public class TellstickScheduler {
 		//in the gui´s and they will be responseable for writing configuration files to check
 		//if a Replay mode has been enabled/configured.
 		this.setTellstickSchedule(new Scheduler());
-		System.out.println("Initiated scheduler.");
+		
 	}
 	
 	/**

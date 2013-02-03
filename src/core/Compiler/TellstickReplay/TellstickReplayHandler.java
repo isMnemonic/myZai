@@ -1,6 +1,5 @@
 package Compiler.TellstickReplay;
 
-import com.sun.jna.*;
 import com.sun.jna.Native;
 
 /**
