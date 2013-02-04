@@ -7,21 +7,52 @@ package Compiler.TellstickReplay;
 import it.sauronsoftware.cron4j.*;
 
 /**
+ * @author Oracle JAVA
+ * 
+ */
+import com.sun.jna.Native;
+
+/**
+ * @author Per Fransman
+ * 
+ */
+import Compiler.TellstickReplay.CLibrary;
+
+/**
  * @author Per Fransman
  *
  */
 public class TellstickScheduler {
-	private Scheduler TellstickSchedule;
+	private Scheduler tellstickSchedule = null;
+	private CLibrary libTelldusCore = null;
 	
 	/**
 	 * Main constructor. Initiates a new Scheduler object with default configuration.
 	 */
-	public TellstickScheduler() {
+	public TellstickScheduler(CLibrary _clibrary) {
 		//This is the main way to initiate the scheduler. Modeling and scaling will be enabled
 		//in the gui´s and they will be responseable for writing configuration files to check
 		//if a Replay mode has been enabled/configured.
-		this.setTellstickSchedule(new Scheduler());
-		
+		Scheduler _scheduler = new Scheduler();
+		this.setTellstickLibrary(_clibrary);
+		_scheduler.schedule("* * * * *", new Runnable() {
+			public void run() {
+				_clibrary.tdInit();
+				
+				_clibrary.tdClose();
+			}
+		});
+		// Starts the scheduler.
+		s.start();
+		// Will run for ten minutes.
+		try {
+			Thread.sleep(1000L * 60L * 10L);
+		} catch (InterruptedException e) {
+			;
+		}
+		// Stops the scheduler.
+		s.stop();
+		this.setTellstickSchedule(_scheduler);
 	}
 	
 	/**
@@ -47,14 +78,30 @@ public class TellstickScheduler {
 	 * @return the tellstickSchedule
 	 */
 	public Scheduler getTellstickSchedule() {
-		return TellstickSchedule;
+		return this.tellstickSchedule;
 	}
 
 	/**
 	 * @param tellstickSchedule the tellstickSchedule to set
 	 */
 	public void setTellstickSchedule(Scheduler tellstickSchedule) {
-		TellstickSchedule = tellstickSchedule;
+		this.tellstickSchedule = tellstickSchedule;
+	}
+	
+	/**
+	 * Method: 'getTelldusCore'. Get method for returning the mapped C library for the Tellstick API.
+	 * @return: 'CLibrary' object which is an instance of the running Tellstick API.
+	 */
+	public CLibrary getTelldusCore() {
+		return this.libTelldusCore;
+	}
+	
+	/**
+	 * Method: 'setTellstickLibrary'. Set method for setting the mapped C library for the Tellstick API.
+	 * @param: '_clibrary' to set in the private variable holder.
+	 */
+	public void setTellstickLibrary( CLibrary _clibrary ) {
+		this.libTelldusCore = _clibrary;
 	}
 	
 

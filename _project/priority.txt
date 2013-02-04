@@ -15,3 +15,4 @@ Todo:
 * install telldus core on RPi - confirmed.
 * install mysql server on RPi - confirmed.
 * install java8 beta on RPi - unconfirmed. running openjdk6-java. running on this version during main development.
+* clean and rearrange house codes and id´s in tellstick configuration - confirmed.

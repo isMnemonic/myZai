@@ -8,10 +8,10 @@ import com.sun.jna.Native;
  */
 public class TellstickReplayHandler {
 	
-	private CLibrary libTelldus;
-	private TellstickScheduler scheduler;
-	private boolean isRunning;
-	private boolean canRunGui;
+	private CLibrary libTelldus = null;
+	private TellstickScheduler scheduler = null;
+	private boolean isRunning = false;
+	private boolean canRunGui = false;
 
 	/**
 	 * Description: Main constructor.
@@ -50,7 +50,7 @@ public class TellstickReplayHandler {
 		
 		try{
 			//TODO: access database and read devices.
-			this.setScheduler(new TellstickScheduler());
+			this.setScheduler(new TellstickScheduler(this.libTelldus));
 			
 		}
 		catch( Exception e ){
@@ -215,7 +215,7 @@ public class TellstickReplayHandler {
 	 * @return the scheduler.
 	 */
 	public TellstickScheduler getScheduler() {
-		return scheduler;
+		return this.scheduler;
 	}
 
 	/**
