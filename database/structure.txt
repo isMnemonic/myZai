@@ -10,10 +10,10 @@ Fields:	os			VARCHAR(10) | NOT NULL : Linux|Windows7|Windows8|Mac		Operating sys
 
 Table: 	device
 Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
-		name 		VARCHAR(100) | NOT NULL | : 								device name.
+		title 		VARCHAR(100) | NOT NULL | : 								device title.
 		protocol	VARCHAR(25) | NOT NULL | : 									protocol running the device.
 		model 		VARCHAR(25) | NOT NULL | : 									manufacturer model.
-		description TEXT | Optional | : 										description of the device.
+		description TEXT | Optional | : 										description of the device and its use.
 
 Table: 	group
 Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
@@ -51,7 +51,7 @@ Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primar
 Table Installation Script:
 
 CREATE TABLE cyxl_system(os VARCHAR(10) NOT NULL, tellstick VARCHAR(10) NOT NULL, offline BIT(1) NOT NULL, initiated BIT(1) NOT NULL);
-CREATE TABLE cyxl_device(id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, name VARCHAR(100) NOT NULL, protocol VARCHAR(25) NOT NULL, model VARCHAR(25) NOT NULL, description TEXT, PRIMARY KEY( id ) );
+CREATE TABLE cyxl_device(id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, title VARCHAR(100) NOT NULL, protocol VARCHAR(25) NOT NULL, model VARCHAR(25) NOT NULL, description TEXT, PRIMARY KEY( id ) );
 CREATE TABLE cyxl_group( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, name VARCHAR(25) NOT NULL, description TEXT, PRIMARY KEY( id ) );
 CREATE TABLE cyxl_groups_devices( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, device_id INT NOT NULL UNIQUE KEY, group_id INT NOT NULL UNIQUE KEY, PRIMARY KEY( id ) );
 CREATE TABLE cyxl_schedule(id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, task VARCHAR(25) NOT NULL, action_id INT NOT NULL UNIQUE KEY, PRIMARY KEY( id ));
