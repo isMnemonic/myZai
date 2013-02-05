@@ -35,13 +35,7 @@ public class TellstickScheduler {
 		//if a Replay mode has been enabled/configured.
 		Scheduler _scheduler = new Scheduler();
 		this.setTellstickLibrary(_clibrary);
-		_scheduler.schedule("* * * * *", new Runnable() {
-			public void run() {
-				_clibrary.tdInit();
-				
-				_clibrary.tdClose();
-			}
-		});
+		_scheduler.schedule("* * * * *", this.TestTurnAllDevicesOff() );
 		// Starts the scheduler.
 		s.start();
 		// Will run for ten minutes.
@@ -53,6 +47,10 @@ public class TellstickScheduler {
 		// Stops the scheduler.
 		s.stop();
 		this.setTellstickSchedule(_scheduler);
+	}
+	
+	public final Runnable TestTurnAllDevicesOff() {
+		CLibrary _clibrary = this.getTelldusCore();
 	}
 	
 	/**
