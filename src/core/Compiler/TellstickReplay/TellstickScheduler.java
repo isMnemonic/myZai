@@ -8,18 +8,12 @@ import it.sauronsoftware.cron4j.Scheduler;
 
 /**
  * @author Per Fransman
- * 
- */
-import Compiler.TellstickReplay.CLibrary;
-import Compiler.TellstickReplay.TellstickScheduleTask;
-
-/**
- * @author Per Fransman
  *
  */
 public class TellstickScheduler {
 	private Scheduler tellstickSchedule = null;
-	private TellstickScheduleTask task = null;
+	//private TellstickScheduleTask task = null;
+	private TellstickScheduleRunnable runner = null;
 	private CLibrary libTelldusCore = null;
 	
 	/**
@@ -31,8 +25,9 @@ public class TellstickScheduler {
 		//if a Replay mode has been enabled/configured.
 		Scheduler _scheduler = new Scheduler();
 		this.setTellstickLibrary(_clibrary);
-		this.task = new TellstickScheduleTask(_clibrary);
-		_scheduler.schedule("* * * * *", this.task);
+		//this.task = new TellstickScheduleTask(_clibrary);
+		this.runner = new TellstickScheduleRunnable();
+		_scheduler.schedule("* * * * *", this.runner);
 		_scheduler.start();
 		this.setTellstickSchedule(_scheduler);
 		System.out.println("Initated TellstickScheduler();");
