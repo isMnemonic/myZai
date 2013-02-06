@@ -2,7 +2,7 @@ package Compiler.TellstickReplay;
 
 /**
  * @author Per Fransman
- *
+ * Enum collection to be used in the entire service and applications.
  */
 public enum TellstickMethods { 
 	TURNON, TURNOFF, DIM, DIMLEVEL, BELL, UP, DOWN, STOP, LEARN,

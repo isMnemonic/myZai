@@ -51,7 +51,6 @@ public class TellstickReplayHandler {
 		try{
 			//TODO: access database and read devices.
 			this.setScheduler(new TellstickScheduler(this.libTelldus));
-			
 		}
 		catch( Exception e ){
 			System.out.println( e );

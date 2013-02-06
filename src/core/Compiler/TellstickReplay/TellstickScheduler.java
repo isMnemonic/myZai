@@ -4,13 +4,14 @@ package Compiler.TellstickReplay;
  * @author Carlo Pelliccia
  * 
  */
-import it.sauronsoftware.cron4j.*;
+import it.sauronsoftware.cron4j.Scheduler;
 
 /**
  * @author Per Fransman
  * 
  */
 import Compiler.TellstickReplay.CLibrary;
+import Compiler.TellstickReplay.TellstickScheduleTask;
 
 /**
  * @author Per Fransman
@@ -30,8 +31,12 @@ public class TellstickScheduler {
 		//if a Replay mode has been enabled/configured.
 		Scheduler _scheduler = new Scheduler();
 		this.setTellstickLibrary(_clibrary);
+		this.task = new TellstickScheduleTask(_clibrary);
 		_scheduler.schedule("* * * * *", this.task);
+		_scheduler.start();
 		this.setTellstickSchedule(_scheduler);
+		System.out.println("Initated TellstickScheduler();");
+		
 	}
 	
 	/**
