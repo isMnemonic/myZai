@@ -31,4 +31,6 @@ public class Core {
 			System.out.println( e );
 		}
 	}
+	
+	//TODO: Iniator for desktop enviroments.
 }

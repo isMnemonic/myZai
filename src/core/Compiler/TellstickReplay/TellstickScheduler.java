@@ -7,12 +7,6 @@ package Compiler.TellstickReplay;
 import it.sauronsoftware.cron4j.*;
 
 /**
- * @author Oracle JAVA
- * 
- */
-import com.sun.jna.Native;
-
-/**
  * @author Per Fransman
  * 
  */
@@ -24,6 +18,7 @@ import Compiler.TellstickReplay.CLibrary;
  */
 public class TellstickScheduler {
 	private Scheduler tellstickSchedule = null;
+	private TellstickScheduleTask task = null;
 	private CLibrary libTelldusCore = null;
 	
 	/**
@@ -35,22 +30,8 @@ public class TellstickScheduler {
 		//if a Replay mode has been enabled/configured.
 		Scheduler _scheduler = new Scheduler();
 		this.setTellstickLibrary(_clibrary);
-		_scheduler.schedule("* * * * *", this.TestTurnAllDevicesOff() );
-		// Starts the scheduler.
-		s.start();
-		// Will run for ten minutes.
-		try {
-			Thread.sleep(1000L * 60L * 10L);
-		} catch (InterruptedException e) {
-			;
-		}
-		// Stops the scheduler.
-		s.stop();
+		_scheduler.schedule("* * * * *", this.task);
 		this.setTellstickSchedule(_scheduler);
-	}
-	
-	public final Runnable TestTurnAllDevicesOff() {
-		CLibrary _clibrary = this.getTelldusCore();
 	}
 	
 	/**
