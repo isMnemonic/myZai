@@ -26,7 +26,7 @@ public class TellstickScheduler {
 		Scheduler _scheduler = new Scheduler();
 		this.setTellstickLibrary(_clibrary);
 		//this.task = new TellstickScheduleTask(_clibrary);
-		this.runner = new TellstickScheduleRunnable();
+		//this.runner = new TellstickScheduleRunnable();
 		_scheduler.schedule("* * * * *", this.runner);
 		_scheduler.start();
 		this.setTellstickSchedule(_scheduler);

@@ -3,8 +3,8 @@
  */
 package Compiler.TellstickReplay.DatabaseConnector;
 
-import com.mysql.*;
-import com.mysql.jdbc.*;
+//import com.mysql.*;
+//import com.mysql.jdbc.*;
 
 /**
  * @author Per Fransman

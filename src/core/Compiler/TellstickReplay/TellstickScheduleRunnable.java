@@ -6,15 +6,10 @@ package Compiler.TellstickReplay;
 import java.lang.Runnable;
 
 /**
- * @author Pär
- *
+ * @author Per Fransman @  Compiler
+ * Abstract class for 'TellstickScheduleRunnable'.
  */
-public class TellstickScheduleRunnable implements Runnable {
+public abstract class TellstickScheduleRunnable implements Runnable {
 
-	@Override
-	public void run() throws RuntimeException {
-		// TODO Auto-generated method stub
-		System.out.println("Test runnable.");
-	}
-	
+	public abstract void run(TellstickMethods method, TellstickDevice device); 
 }

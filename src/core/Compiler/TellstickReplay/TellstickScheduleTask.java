@@ -3,13 +3,11 @@
  */
 package Compiler.TellstickReplay;
 
-import it.sauronsoftware.cron4j.*;
-
 /**
  * @author Par
  *
  */
-public class TellstickScheduleTask extends Task {
+public class TellstickScheduleTask extends TellstickScheduleRunnable {
 	
 	private CLibrary _clibrary = null;
 	
@@ -27,14 +25,6 @@ public class TellstickScheduleTask extends Task {
 	public TellstickScheduleTask(CLibrary _clibrary) {
 		this.set_clibrary(_clibrary);
 	}
-	
-	/**
-	 * Execute. 
-	 */
-	@Override
-	public void execute(TaskExecutionContext context) throws RuntimeException {
-		
-	}
 
 	/**
 	 * @return the _clibrary
@@ -48,6 +38,18 @@ public class TellstickScheduleTask extends Task {
 	 */
 	public void set_clibrary(CLibrary _clibrary) {
 		this._clibrary = _clibrary;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void run(TellstickMethods method, TellstickDevice device) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
