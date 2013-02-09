@@ -9,10 +9,15 @@ Priorities:
 	* add sql statements:
 		* select/update:
 * add schema with minimum of three commands to tellstick
-	* test run.
+	* test run: confirmed! Finally!!
+* collect data from sql database: todo.
+* construct schedule.xml from database : todo
+* construct schedule to load in core from database : todo
+* construct status/priotize : todo
+
 
 Todo:
 * install telldus core on RPi - confirmed.
 * install mysql server on RPi - confirmed.
-* install java8 beta on RPi - unconfirmed. running openjdk6-java. running on this version during main development.
+* install java8 beta on RPi - confirmed.
 * clean and rearrange house codes and id´s in tellstick configuration - confirmed.
