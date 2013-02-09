@@ -8,7 +8,7 @@ import com.sun.jna.Native;
  */
 public class TellstickReplayHandler {
 	
-	private CLibrary libTelldus = null;
+	private TellstickLibrary libTelldus = null;
 	private TellstickScheduler scheduler = null;
 	private boolean isRunning = false;
 	private boolean canRunGui = false;
@@ -21,17 +21,17 @@ public class TellstickReplayHandler {
 		try {
 			switch (os){
 				case Linux:
-					this.libTelldus = (CLibrary)Native.loadLibrary("telldus-core", CLibrary.class);
+					this.libTelldus = (TellstickLibrary)Native.loadLibrary("telldus-core", TellstickLibrary.class);
 					this.setRunning(true);
 					this.setCanRunGui(false);
 					break;
 				case Windows7:
-					this.libTelldus = (CLibrary)Native.loadLibrary("TelldusCore", CLibrary.class);
+					this.libTelldus = (TellstickLibrary)Native.loadLibrary("TelldusCore", TellstickLibrary.class);
 					this.setRunning(true);
 					this.setCanRunGui(true);
 					break;
 				case Windows8:
-					this.libTelldus = (CLibrary)Native.loadLibrary("TelldusCore", CLibrary.class);
+					this.libTelldus = (TellstickLibrary)Native.loadLibrary("TelldusCore", TellstickLibrary.class);
 					this.setRunning(true);
 					this.setCanRunGui(true);
 					break;
@@ -49,7 +49,6 @@ public class TellstickReplayHandler {
 		}
 		
 		try{
-			//TODO: access database and read devices.
 			this.setScheduler(new TellstickScheduler(this.libTelldus));
 		}
 		catch( Exception e ){
@@ -61,7 +60,7 @@ public class TellstickReplayHandler {
 	 * Description: Method 'TellstickReplaySchedulerHandler'
 	 * @param method
 	 */
-	public void TellstickReplayScheduleHandler(TellstickMethods method){
+	public void TellstickReplayScheduleHandler(TellstickActions method){
 		switch( method ) {
 			case TURNON:
 				break;

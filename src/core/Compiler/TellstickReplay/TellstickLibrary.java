@@ -10,7 +10,7 @@ import com.sun.jna.Pointer;
  * @author Per Fransman
  * Class description: C++ Extension mapping all available methods from Telldus API.
  */
-public interface CLibrary extends Library {
+public interface TellstickLibrary extends Library {
 	void tdInit();
 	void tdClose();
 	int tdTurnOn( int deviceId );

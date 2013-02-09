@@ -10,9 +10,9 @@ public class TellstickDevice {
 	private final String model;
 	private final String protocol;
 	
-	private final TellstickMethods[] supported;
+	private final TellstickActions[] supported;
 	
-	public TellstickDevice( int _id, String _name, String _model, String _protocol, TellstickMethods[] _supported ) {
+	public TellstickDevice( int _id, String _name, String _model, String _protocol, TellstickActions[] _supported ) {
 		this.id = _id;
 		this.name = _name;
 		this.model = _model;
@@ -36,7 +36,7 @@ public class TellstickDevice {
 		return protocol;
 	}
 
-	public TellstickMethods[] getSupported() {
+	public TellstickActions[] getSupported() {
 		return supported;
 	}
 }
