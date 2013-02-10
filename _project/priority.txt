@@ -4,12 +4,14 @@ Priorities:
 	* add to github - confirmed.
 * compile project into jar file on RPi	- confirmed.
 	* test run - confirmed.
-* review the database structe :
-	* add complete test data :
+* review the database structe: iniated.
+	* add complete test data:
 	* add sql statements:
-		* select/update:
+		* select/update: iniated.
+
 * add schema with minimum of three commands to tellstick
 	* test run: confirmed! Finally!!
+
 * collect data from sql database: todo.
 * construct schedule.xml from database : todo
 * construct schedule to load in core from database : todo

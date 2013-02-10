@@ -23,7 +23,8 @@ public class TellstickScheduler {
 		//This is the main way to initiate the scheduler. Modeling and scaling will be enabled
 		//in the gui´s and they will be responseable for writing configuration files to check
 		//if a Replay mode has been enabled/configured.
-		System.out.println("Creating new schedule.");
+		
+		/*System.out.println("Creating new schedule.");
 		Scheduler _scheduler = new Scheduler();
 		this.library = library;
 		System.out.println("Creating new tellstick device.");
@@ -38,18 +39,20 @@ public class TellstickScheduler {
 						TellstickActions.TURNOFF,
 						TellstickActions.TURNON
 					});
-		System.out.println("Setting schedule.");
-		try {
+		System.out.println("Setting schedule.");*/
+		
+		/*try {
 			_scheduler.schedule("* * * * *", new TellstickScheduleTask(this.library, new ActionEvent(this, TellstickActions.TURNOFF, device, null)));
 			_scheduler.start();
+			System.out.println("Starting schedule.");
 		} catch( RuntimeException rte ) {
 			System.out.println("Eexception: " + rte.getMessage() );
 		} catch( Exception e ) {
 			System.out.println("Undefined exception.\r\n" + e.getMessage() );
-		}
-		System.out.println("Starting schedule.");
-		this.setTellstickSchedule(_scheduler);
-		System.out.println("Initated TellstickScheduler();");
+		}*/
+		
+		//this.setTellstickSchedule(_scheduler);
+		//System.out.println("Initated TellstickScheduler();");
 		
 	}
 	
