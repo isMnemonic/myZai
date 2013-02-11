@@ -176,13 +176,16 @@ public class TellstickScheduleTask extends Task {
 	}
 
 	/**
+	 * Method: 'getTellstickLibrary' returns the local value of the type TellstickLibrary.
+	 * @return: 'library' is a local stored value of the instance for the Telldus API C lib.
 	 */
 	public TellstickLibrary getTellstickibrary() {
 		return library;
 	}
 
 	/**
-	 * @param _clibrary the _clibrary to set
+	 * Method: 'setTellstickLibrary' stores the supplied value of type TellstickLibrary localy.
+	 * @param 'library' is used to store a local value of the instance for the Telldus API C lib.
 	 */
 	public void setTellstickLibrary(TellstickLibrary library) {
 		this.library = library;

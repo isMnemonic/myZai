@@ -6,17 +6,18 @@ package Compiler.TellstickReplay;
  */
 public class TellstickDevice {
 	private final int id;
-	private final String name;
+	private String title;
 	private final String model;
 	private final String protocol;
-	
+	private String description;
 	private final TellstickActions[] supported;
 	
-	public TellstickDevice( int _id, String _name, String _model, String _protocol, TellstickActions[] _supported ) {
+	public TellstickDevice( int _id, String _title, String _model, String _protocol, String _description, TellstickActions[] _supported ) {
 		this.id = _id;
-		this.name = _name;
+		this.title = _title;
 		this.model = _model;
 		this.protocol = _protocol;
+		this.description = _description;
 		this.supported = _supported;
 	}
 	
@@ -24,8 +25,12 @@ public class TellstickDevice {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	public String getMode() {
@@ -36,6 +41,14 @@ public class TellstickDevice {
 		return protocol;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	public TellstickActions[] getSupported() {
 		return supported;
 	}

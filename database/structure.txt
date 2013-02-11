@@ -5,8 +5,8 @@ Random Table prefix: cyxl_
 Table: 	system
 Fields:	os			VARCHAR(10) | NOT NULL : Linux|Windows7|Windows8|Mac		Operating system TellstickReplay is being runned on.
 		tellstick	VARCHAR(10) | NOT NULL : Basic|Duo|Net						The type of tellstick device being used.
-		offline		BIT(1) | NOT NULL : TRUE|FALSE								'true' if Telldus Live! API is not available.
-		initiated	BIT(1) | NOT NULL : TRUE|FALSE								'true' if initial setup has been preformed.
+		offline		INT(1) | NOT NULL : TRUE|FALSE								'true' if Telldus Live! API is not available.
+		initiated	INT(1) | NOT NULL : TRUE|FALSE								'true' if initial setup has been preformed.
 
 Table: 	device
 Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
@@ -22,19 +22,20 @@ Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primar
 		description TEXT | Optional | : 										description of the group.
 
 Table:	groups_devices
-Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
-		device_id	INT | NOT NULL | UNIQUE KEY | : 							id of connected device.
-		group_id 	INT | NOT NULL | UNIQUE KEY | :								id of connected group.
+Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY: 				row id & primary key.
+		device_id	INT | NOT NULL | UNIQUE KEY: 								id of connected device.
+		group_id 	INT | NOT NULL | UNIQUE KEY:								id of connected group.
 
 Table: 	schedule
-Fields: id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY :				row id & primary key.
-		task		VARCHAR(25) | NOT NULL :									string containing the cron job.
-		action_id	INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY:				id of action to be perfomed.
+Fields: id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY:				row id & primary key.
+		task		VARCHAR(25) | NOT NULL:										string containing the schedule job.
+		action_id	INT | NOT NULL:												id of action to be perfomed.
+		object_id	INT | NOT NULL:												id of the device/group connected to the schedule
 
 Table: 	action
 Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY :				row id & primary key.
 		action 		VARCHAR(25) | NOT NULL :									the name of the action.
-		values 		INT | NULL / Optional : 									value for action 'DIM' or 'RAW'.
+		value 		INT | NULL / Optional : 									value for action 'DIM' or 'RAW'.
 
 Table:	status
 Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
@@ -45,18 +46,18 @@ Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primar
 Table:	status_devices_groups
 Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
 		status_id	INT | NOT NULL | UNIQUE KEY : 								id of status flag.
-		device_id	INT | NULL / Optional : 									NULL if group_id is supplied.
-		group_id	INT | NULL / Optional : 									NULL if device_id is supplied.
+		device_id	INT | Optional : 											NULL if group_id is supplied.
+		group_id	INT | Optional : 											NULL if device_id is supplied.
 
 
 Table Installation Script:
 
-CREATE TABLE cyxl_system(os VARCHAR(10) NOT NULL, tellstick VARCHAR(10) NOT NULL, offline BIT(1) NOT NULL, initiated BIT(1) NOT NULL);
+CREATE TABLE cyxl_system(os VARCHAR(10) NOT NULL, tellstick VARCHAR(10) NOT NULL, offline INT(1) NOT NULL, initiated INT(1) NOT NULL);
 CREATE TABLE cyxl_device(id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, title VARCHAR(100) NOT NULL, protocol VARCHAR(25) NOT NULL, model VARCHAR(25) NOT NULL, description TEXT, supported TEXT, PRIMARY KEY( id ) );
 CREATE TABLE cyxl_group( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, name VARCHAR(25) NOT NULL, description TEXT, PRIMARY KEY( id ) );
 CREATE TABLE cyxl_groups_devices( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, device_id INT NOT NULL UNIQUE KEY, group_id INT NOT NULL UNIQUE KEY, PRIMARY KEY( id ) );
-CREATE TABLE cyxl_schedule(id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, task VARCHAR(25) NOT NULL, action_id INT NOT NULL UNIQUE KEY, PRIMARY KEY( id ));
-CREATE TABLE cyxl_action( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, action VARCHAR(25) NOT NULL, rate INT NULL UNIQUE KEY, PRIMARY KEY( id ));
+CREATE TABLE cyxl_schedule(id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, task VARCHAR(25) NOT NULL, action_id INT NOT NULL, object_id INT NOT NULL, PRIMARY KEY( id ));
+CREATE TABLE cyxl_action( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, action VARCHAR(25) NOT NULL, value INT NULL, PRIMARY KEY( id ));
 CREATE TABLE cyxl_status( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, name VARCHAR(25) NOT NULL, status BIT(1) NOT NULL, description TEXT NULL, PRIMARY KEY( id ));
 CREATE TABLE cyxl_status_devices_groups( id INT NOT NULL AUTO_INCREMENT UNIQUE KEY, status_ID INT NOT NULL UNIQUE KEY, device_id INT UNIQUE KEY, group_id INT UNIQUE KEY, description TEXT );
 
@@ -67,6 +68,10 @@ INSERT INTO cyxl_system(os, tellstick, offline, initiated) VALUES('Linux', 'Basi
 INSERT INTO cyxl_device( name, protocol, model, description) VALUES( 'Example #1', 'archtech', 'Nexa', 'This is onlya demo lamp');
 INSERT INTO cyxl_group( name, description ) VALUES('All lamps', 'Example group only.');
 INSERT INTO cyxl_groups_devices( device_id, group_id ) VALUES(1, 1);
+insert into cyxl_action(action) values('TURNON');
+insert into cyxl_action(action) values('TURNOFF');
+insert into cyxl_action(action) values('DIM');
+insert into cyxl_action(action) values('BELL');
 
 
 Select Statements:

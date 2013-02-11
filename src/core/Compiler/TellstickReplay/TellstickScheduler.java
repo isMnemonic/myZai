@@ -1,6 +1,7 @@
 package Compiler.TellstickReplay;
 
 import Compiler.TellstickReplay.TellstickScheduleTask;
+import Compiler.TellstickReplay.DatabaseConnector.DatabaseConnector;
 
 /**
  * @author Carlo Pelliccia
@@ -15,6 +16,7 @@ import it.sauronsoftware.cron4j.Scheduler;
 public class TellstickScheduler {
 	private Scheduler tellstickSchedule = null;
 	private TellstickLibrary library = null;
+	private DatabaseConnector database = null;
 	
 	/**
 	 * Main constructor. Initiates a new Scheduler object with default configuration.
@@ -60,7 +62,7 @@ public class TellstickScheduler {
 	 * Divered constructor. Backup: Loads schedule configuration from file.
 	 * @param load: (String). Relative filepath to backup schedule configuration file. Resides in the installation folder.
 	 */
-	public TellstickScheduler( String loadFile ){
+	public void TellstickSchedulerLoadFromFile( String loadFile ){
 		//TODO
 	}
 	
@@ -71,7 +73,7 @@ public class TellstickScheduler {
 	 * @param user: (String). Database user name.
 	 * @param password: (String). Database user password.
 	 */
-	public TellstickScheduler( String connectToComputer, String database, String user, String password ) {
+	public void TellstickSchedulerLoadFromDatabase( String connectToComputer, String database, String user, String password ) {
 		//TODO
 	}
 

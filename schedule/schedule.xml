@@ -11,7 +11,7 @@
 # type: device|group
 # name: string
 # description: string
-# : * * * * * : ACTION( mandatory ) | VALUE( used for dim action )
+# : * * * * * : ACTION( mandatory ) | VALUE( used for dim or raw action )
 
 <configuration>
 	<id value="1" />
