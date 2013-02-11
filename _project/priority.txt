@@ -23,3 +23,6 @@ Todo:
 * install mysql server on RPi - confirmed.
 * install java8 beta on RPi - confirmed.
 * clean and rearrange house codes and id´s in tellstick configuration - confirmed.
+* added second nexa lamp in the ceiling lamp in the hallway - confirmed.
+* removed previous codes in ceiling lamp in hallway with new - confirmed.
+* reinstalled nexa switches - Nexa: Switch: Kontor: Serverskåp still to be reinstalled.
