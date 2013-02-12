@@ -78,6 +78,10 @@ Select Statements:
 
 SELECT id, title, protocol, model, supported FROM cyxl_device ORDER BY id;
 
+SELECT d.id, d.title, d.protocol, d.model, d.description, d.supported, s.task, s.value, a.action
+FROM cyxl_device AS d, cyxl_schedule AS s, cyxl_action AS a
+WHERE d.id = s.object_id AND s.action_id = a.id
+ORDER BY d.id
 
 Update Statements:
 
