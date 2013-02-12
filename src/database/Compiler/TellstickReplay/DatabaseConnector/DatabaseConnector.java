@@ -25,7 +25,7 @@ public class DatabaseConnector {
 		this.setDatabase("TellstickReplay");
 		this.setUid("tellstick");
 		this.setPwd("replay");
-		this.setConnection("jdbc:mysql://localhost:3306/TellstickReplay");
+		this.setConnection("jdbc:mysql://192.168.1.1:3306/TellstickReplay");
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {

@@ -26,36 +26,38 @@ public class TellstickScheduler {
 		//in the gui´s and they will be responseable for writing configuration files to check
 		//if a Replay mode has been enabled/configured.
 		
-		/*System.out.println("Creating new schedule.");
+		System.out.println("Creating new schedule.");
 		Scheduler _scheduler = new Scheduler();
 		this.library = library;
 		System.out.println("Creating new tellstick device.");
 		TellstickDevice device = new TellstickDevice(
-				2,
+				3,
 				"Nexa: Floorlamp: Left",
 				"selflearning-dimmer:nexa",
 				"arctech",
+				"description",
 				new TellstickActions[]{
 						TellstickActions.DIM,
 						TellstickActions.DIMLEVEL,
 						TellstickActions.TURNOFF,
 						TellstickActions.TURNON
 					});
-		System.out.println("Setting schedule.");*/
+		System.out.println("Setting schedule.");
 		
-		/*try {
-			_scheduler.schedule("* * * * *", new TellstickScheduleTask(this.library, new ActionEvent(this, TellstickActions.TURNOFF, device, null)));
+		try {
+			_scheduler.schedule("27 22 * * 1-5", new TellstickScheduleTask(this.library, new ActionEvent(this, TellstickActions.DIM, device, new Byte("10"))));
 			_scheduler.start();
 			System.out.println("Starting schedule.");
 		} catch( RuntimeException rte ) {
 			System.out.println("Eexception: " + rte.getMessage() );
 		} catch( Exception e ) {
 			System.out.println("Undefined exception.\r\n" + e.getMessage() );
-		}*/
+		}
 		
-		//this.setTellstickSchedule(_scheduler);
-		//System.out.println("Initated TellstickScheduler();");
-		
+		this.setTellstickSchedule(_scheduler);
+		System.out.println("Initated TellstickScheduler();");
+		this.setDatabase(new DatabaseConnector());
+		System.out.println("Init db");
 	}
 	
 	/**
@@ -105,6 +107,20 @@ public class TellstickScheduler {
 	 */
 	public void setTellstickLibrary( TellstickLibrary library ) {
 		this.library = library;
+	}
+
+	/**
+	 * @return the database
+	 */
+	public DatabaseConnector getDatabase() {
+		return database;
+	}
+
+	/**
+	 * @param database the database to set
+	 */
+	public void setDatabase(DatabaseConnector database) {
+		this.database = database;
 	}
 	
 
