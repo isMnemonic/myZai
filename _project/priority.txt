@@ -6,6 +6,7 @@ Priorities:
 	* test run - confirmed.
 * review the database structe: iniated.
 	* add complete test data:
+		* schedule almost complete. lacks support of dim value: to be added.
 	* add sql statements:
 		* select/update: iniated.
 
