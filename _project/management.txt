@@ -4,19 +4,24 @@ Priorities:
 	* add to github - confirmed.
 * compile project into jar file on RPi	- confirmed.
 	* test run - confirmed.
-* review the database structe: iniated.
-	* add complete test data:
-		* schedule almost complete. lacks support of dim value: to be added.
+
+* review the database structe: iniated. almost done.
+	* add complete test data: implementing. almost done.
+
+* schedule management: class structure done. task management
+			and enum types done. read from database: ongoing.
 	* add sql statements:
 		* select/update: iniated.
+		* delete: todo
 
 * add schema with minimum of three commands to tellstick
 	* test run: confirmed! Finally!!
 
-* collect data from sql database: todo.
+* collect data from sql database: implementing.
 * construct schedule.xml from database : todo
 * construct schedule to load in core from database : todo
 * construct status/priotize : todo
+* construct logging to file : todo
 
 
 Todo:
@@ -26,4 +31,4 @@ Todo:
 * clean and rearrange house codes and id´s in tellstick configuration - confirmed.
 * added second nexa lamp in the ceiling lamp in the hallway - confirmed.
 * removed previous codes in ceiling lamp in hallway with new - confirmed.
-* reinstalled nexa switches - Nexa: Switch: Kontor: Serverskåp still to be reinstalled.
+* reinstalled nexa switches - all switches clean and installed - confirmed.
