@@ -8,18 +8,123 @@ package Compiler.TellstickReplay.DatabaseConnector;
  * @author Per Fransman
  *
  */
-public interface TellstickReplaySqlQuerys {
+public class TellstickReplaySqlQuerys {
 	
-	public static final String sqlTemplate = "";
+	/**
+	 * SQL Query: Selects all devices found in database.
+	 */
+	private String sqlSelectAllDevices = "SELECT id, title, protocol, model, supported FROM cyxl_device ORDER BY id;";
 	
-	public static final String sqlSelectAllDevices = "SELECT id, title, protocol, model, supported FROM cyxl_device ORDER BY id;";
-	public static final String sqlSelectDeviceById ="SELECT id, title, protocol, model, supported FROM cyxl_device WHERE id={0};";
-	public static final String sqlSelectSystemInformation = "SELECT os, tellstick, offline, initiated FROM cyxl_system;";
-	public static final String sqlSelectAllGroups = "SELECT id, name, description FROM cyxl_group;";
-	public static final String sqlSelectAllSchedules ="SELECT id, task, action_id, object_id FROM cyxl_schedule;";
+	/**
+	 * SQL Query: Select specific device based on 'id'.
+	 */
+	private String sqlSelectDeviceById ="SELECT id, title, protocol, model, supported FROM cyxl_device WHERE id={0};";
+	
+	/**
+	 * SQL Query: Selects settings configured for Tellstick Replay.
+	 */
+	private String sqlSelectSystemInformation = "SELECT os, tellstick, offline, initiated FROM cyxl_system;";
+	
+	/**
+	 * SQL Query: Selects all groups.
+	 */
+	private String sqlSelectAllGroups = "SELECT id, name, description FROM cyxl_group;";
+	
+	/**
+	 * SQL Query: Selects all schedules.
+	 */
+	private String sqlSelectAllSchedules ="SELECT id, task, action_id, object_id FROM cyxl_schedule;";
 	
 	/**
 	 * SQL Query: Selects all devices with its corresponding schedules.
 	 */
-	public static final String sqlSelectDeviceWithSchedule = "SELECT d.id, d.title, d.protocol, d.model, d.description, d.supported, s.task, s.value, a.action FROM cyxl_device AS d, cyxl_schedule AS s, cyxl_action AS a WHERE d.id = s.object_id AND s.action_id = a.id ORDER BY d.id;";
+	private String sqlSelectDeviceWithSchedule = "SELECT d.id, d.title, d.protocol, d.model, d.description, d.supported, s.task, s.value, a.action FROM cyxl_device AS d, cyxl_schedule AS s, cyxl_action AS a WHERE d.id = s.object_id AND s.action_id = a.id ORDER BY d.id;";
+
+	/**
+	 * @return the sqlSelectAllDevices
+	 */
+	public String getSqlSelectAllDevices() {
+		return sqlSelectAllDevices;
+	}
+
+	/**
+	 * @param sqlSelectAllDevices the sqlSelectAllDevices to set
+	 */
+	public void setSqlSelectAllDevices(String sqlSelectAllDevices) {
+		this.sqlSelectAllDevices = sqlSelectAllDevices;
+	}
+
+	/**
+	 * @return the sqlSelectDeviceById
+	 */
+	public String getSqlSelectDeviceById() {
+		return sqlSelectDeviceById;
+	}
+
+	/**
+	 * @param sqlSelectDeviceById the sqlSelectDeviceById to set
+	 */
+	public void setSqlSelectDeviceById(String sqlSelectDeviceById) {
+		this.sqlSelectDeviceById = sqlSelectDeviceById;
+	}
+
+	/**
+	 * @return the sqlSelectSystemInformation
+	 */
+	public String getSqlSelectSystemInformation() {
+		return sqlSelectSystemInformation;
+	}
+
+	/**
+	 * @param sqlSelectSystemInformation the sqlSelectSystemInformation to set
+	 */
+	public void setSqlSelectSystemInformation(String sqlSelectSystemInformation) {
+		this.sqlSelectSystemInformation = sqlSelectSystemInformation;
+	}
+
+	/**
+	 * @return the sqlSelectAllGroups
+	 */
+	public String getSqlSelectAllGroups() {
+		return sqlSelectAllGroups;
+	}
+
+	/**
+	 * @param sqlSelectAllGroups the sqlSelectAllGroups to set
+	 */
+	public void setSqlSelectAllGroups(String sqlSelectAllGroups) {
+		this.sqlSelectAllGroups = sqlSelectAllGroups;
+	}
+
+	/**
+	 * @return the sqlSelectAllSchedules
+	 */
+	public String getSqlSelectAllSchedules() {
+		return sqlSelectAllSchedules;
+	}
+
+	/**
+	 * @param sqlSelectAllSchedules the sqlSelectAllSchedules to set
+	 */
+	public void setSqlSelectAllSchedules(String sqlSelectAllSchedules) {
+		this.sqlSelectAllSchedules = sqlSelectAllSchedules;
+	}
+
+	/**
+	 * @return the sqlSelectDeviceWithSchedule
+	 */
+	public String getSqlSelectDeviceWithSchedule() {
+		return sqlSelectDeviceWithSchedule;
+	}
+
+	/**
+	 * @param sqlSelectDeviceWithSchedule the sqlSelectDeviceWithSchedule to set
+	 */
+	public void setSqlSelectDeviceWithSchedule(String sqlSelectDeviceWithSchedule) {
+		this.sqlSelectDeviceWithSchedule = sqlSelectDeviceWithSchedule;
+	}
+
+	
+	
+	
 }

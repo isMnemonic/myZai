@@ -1,7 +1,7 @@
 package Compiler.TellstickReplay;
 
-import Compiler.TellstickReplay.TellstickScheduleTask;
 import Compiler.TellstickReplay.DatabaseConnector.DatabaseConnector;
+import Compiler.TellstickReplay.DatabaseConnector.TellstickReplaySqlQuerys;
 
 /**
  * @author Carlo Pelliccia
@@ -14,9 +14,15 @@ import it.sauronsoftware.cron4j.Scheduler;
  *
  */
 public class TellstickScheduler {
+	
+	
+	/**
+	 * 
+	 */
 	private Scheduler tellstickSchedule = null;
 	private TellstickLibrary library = null;
 	private DatabaseConnector database = null;
+	private TellstickReplaySqlQuerys querys = null;
 	
 	/**
 	 * Main constructor. Initiates a new Scheduler object with default configuration.
@@ -26,10 +32,12 @@ public class TellstickScheduler {
 		//in the gui´s and they will be responseable for writing configuration files to check
 		//if a Replay mode has been enabled/configured.
 		
-		System.out.println("Creating new schedule.");
+		this.setQuerys(new TellstickReplaySqlQuerys());
+		
+		System.out.println("Creating new schedule.");							//TODO: Create seperate logging to file.
 		Scheduler _scheduler = new Scheduler();
 		this.library = library;
-		System.out.println("Creating new tellstick device.");
+		System.out.println("Creating new tellstick device.");					//TODO: Create seperate logging to file.
 		TellstickDevice device = new TellstickDevice(
 				3,
 				"Nexa: Floorlamp: Left",
@@ -42,22 +50,22 @@ public class TellstickScheduler {
 						TellstickActions.TURNOFF,
 						TellstickActions.TURNON
 					});
-		System.out.println("Setting schedule.");
+		System.out.println("Setting schedule.");								//TODO: Create seperate logging to file.
 		
 		try {
 			_scheduler.schedule("27 22 * * 1-5", new TellstickScheduleTask(this.library, new ActionEvent(this, TellstickActions.DIM, device, new Byte("10"))));
 			_scheduler.start();
-			System.out.println("Starting schedule.");
+			System.out.println("Starting schedule.");							//TODO: Create seperate logging to file.
 		} catch( RuntimeException rte ) {
-			System.out.println("Eexception: " + rte.getMessage() );
+			System.out.println("Eexception: " + rte.getMessage() );				//TODO: Create seperate logging to file.
 		} catch( Exception e ) {
-			System.out.println("Undefined exception.\r\n" + e.getMessage() );
+			System.out.println("Undefined exception.\r\n" + e.getMessage() );	//TODO: Create seperate logging to file.
 		}
 		
 		this.setTellstickSchedule(_scheduler);
-		System.out.println("Initated TellstickScheduler();");
+		System.out.println("Initated TellstickScheduler();");					//TODO: Create seperate logging to file.
 		this.setDatabase(new DatabaseConnector());
-		System.out.println("Init db");
+		System.out.println("Init db");											//TODO: Create seperate logging to file.
 	}
 	
 	/**
@@ -121,6 +129,20 @@ public class TellstickScheduler {
 	 */
 	public void setDatabase(DatabaseConnector database) {
 		this.database = database;
+	}
+
+	/**
+	 * @return the querys
+	 */
+	public TellstickReplaySqlQuerys getQuerys() {
+		return querys;
+	}
+
+	/**
+	 * @param querys the querys to set
+	 */
+	public void setQuerys(TellstickReplaySqlQuerys querys) {
+		this.querys = querys;
 	}
 	
 

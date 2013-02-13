@@ -3,8 +3,14 @@
  */
 package Compiler.TellstickReplay.DatabaseConnector;
 
-import com.mysql.*;
-import com.mysql.jdbc.*;
+/**
+ * 
+ */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author Per Fransman
@@ -12,11 +18,12 @@ import com.mysql.jdbc.*;
  */
 public class DatabaseConnector {
 	
-	private String connection;
+	private String url;
 	private String database;
 	private String uid;
 	private String pwd;
 	private String query;
+	private Connection connection;
 	
 	/**
 	 * 	Default Constructor. Assuming default values from installation.
@@ -25,11 +32,15 @@ public class DatabaseConnector {
 		this.setDatabase("TellstickReplay");
 		this.setUid("tellstick");
 		this.setPwd("replay");
-		this.setConnection("jdbc:mysql://192.168.1.1:3306/TellstickReplay");
+		this.setUrl("jdbc:mysql://192.168.1.1:3306/TellstickReplay");
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			this.connection = DriverManager.getConnection(this.url);
 		} catch (ClassNotFoundException e) {
 			// TODO : Update logging
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -48,37 +59,37 @@ public class DatabaseConnector {
 	
 	/**
 	 * Executes supplied query against the database.
-	 * @param _query
-	 * @return boolean value 'true' if the query returned rows >= 1 or
-	 * 'false' if rows are <= 0.
+	 * @param query : String containing the SQL query.
+	 * @return 'Resultset' with the result from the query execution.
 	 */
-	public boolean ExecuteQuery( String _query ) {
-		boolean value = false;
+	public ResultSet ExecuteQuery( String query ) {
+		Statement statement = null;
+		ResultSet result = null;
 		try {
-			value = true;
+			statement = this.connection.createStatement();
+			result = statement.executeQuery(query);
 		}
 		catch( Exception e ){
-			value = false;
 			//throw e;
 			System.out.println( e );
 		}
-		return value;
+		return result;
 	}
 
 	/**
 	 * Method: getConnection.
 	 * @return 'String' value of the current connection.
 	 */
-	public String getConnection() {
-		return connection;
+	public String getUrl() {
+		return url;
 	}
 
 	/**
 	 * Method: setConnection. Sets the connection towards the database to work with.
 	 * @param connection the connection to set
 	 */
-	public void setConnection(String connection) {
-		this.connection = connection;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	/**

@@ -27,7 +27,7 @@ Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY: 				row id & primary
 		group_id 	INT | NOT NULL | UNIQUE KEY:								id of connected group.
 
 Table: 	schedule
-Fields: id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY:				row id & primary key.
+Fields: id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY:				row id & primary key and will be id in tellstick.conf.
 		task		VARCHAR(25) | NOT NULL:										string containing the schedule job.
 		action_id	INT | NOT NULL:												id of action to be perfomed.
 		object_id	INT | NOT NULL:												id of the device/group connected to the schedule.
