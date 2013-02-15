@@ -1,6 +1,9 @@
 package Compiler.TellstickReplay;
 
+import Compiler.TellstickReplay.Webservice.TellstickReplayWebService;
+
 import com.sun.jna.Native;
+import javax.xml.ws.Endpoint;
 
 /**
  * @author Per Fransman
@@ -8,7 +11,7 @@ import com.sun.jna.Native;
  */
 public class TellstickReplayHandler {
 	
-	private TellstickLibrary libTelldus = null;
+	private TellstickLibrary library = null;
 	private TellstickScheduler scheduler = null;
 	private boolean isRunning = false;
 	private boolean canRunGui = false;
@@ -21,17 +24,17 @@ public class TellstickReplayHandler {
 		try {
 			switch (os){
 				case Linux:
-					this.libTelldus = (TellstickLibrary)Native.loadLibrary("telldus-core", TellstickLibrary.class);
+					this.library = (TellstickLibrary)Native.loadLibrary("telldus-core", TellstickLibrary.class);
 					this.setRunning(true);
 					this.setCanRunGui(false);
 					break;
 				case Windows7:
-					this.libTelldus = (TellstickLibrary)Native.loadLibrary("TelldusCore", TellstickLibrary.class);
+					this.library = (TellstickLibrary)Native.loadLibrary("TelldusCore", TellstickLibrary.class);
 					this.setRunning(true);
 					this.setCanRunGui(true);
 					break;
 				case Windows8:
-					this.libTelldus = (TellstickLibrary)Native.loadLibrary("TelldusCore", TellstickLibrary.class);
+					this.library = (TellstickLibrary)Native.loadLibrary("TelldusCore", TellstickLibrary.class);
 					this.setRunning(true);
 					this.setCanRunGui(true);
 					break;
@@ -48,8 +51,21 @@ public class TellstickReplayHandler {
 			System.out.println( e );
 		}
 		
+		/**
+		 * Initiate the scheduler.
+		 */
 		try{
-			this.setScheduler(new TellstickScheduler(this.libTelldus));
+			this.setScheduler(new TellstickScheduler(this.library));
+		}
+		catch( Exception e ){
+			System.out.println( e );
+		}
+		
+		/**
+		 *  Publish the webservice to the tomcat server.
+		 */
+		try{
+			Endpoint.publish("http://localhost:9090/TellstickReplay", new TellstickReplayWebService(this.library));
 		}
 		catch( Exception e ){
 			System.out.println( e );

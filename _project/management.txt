@@ -18,11 +18,13 @@ Priorities:
 	* test run: confirmed! Finally!!
 
 * collect data from sql database: implementing.
-* construct schedule.xml from database : todo
-* construct schedule to load in core from database : todo
 * construct status/priotize : todo
+* construct schedule to load in core from database : todo
+* construct schedule.xml from database : todo
 * construct logging to file : todo
 * implement basic webservice : todo
+* construct xbmc plugin : todo
+* design and implement website administration : todo
 
 
 Todo:

@@ -3,12 +3,16 @@ package Compiler.TellstickReplay.Webservice;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import Compiler.TellstickReplay.TellstickLibrary;
+
 /**
  * @author Per Fransman
  *
  */
 @WebService()
 public class TellstickReplayWebService {
+	
+	private TellstickLibrary library = null;
 	
 	/**
 	 * 
@@ -22,8 +26,8 @@ public class TellstickReplayWebService {
 	/**
 	 * Description: Main constructor.
 	 */
-	public TellstickReplayWebService() {
-		// TODO Auto-generated constructor stub
+	public TellstickReplayWebService(TellstickLibrary library) {
+		this.library = library;
 	}
 	
 	/**
@@ -33,7 +37,9 @@ public class TellstickReplayWebService {
 	 */
 	@WebMethod()
 	public void DimDeviceById(int id, byte level) {
-		
+		this.library.tdInit();
+			
+		this.library.tdClose();
 	}
 	
 	/**
@@ -42,7 +48,9 @@ public class TellstickReplayWebService {
 	 */
 	@WebMethod()
 	public void TurnOffLampsById(int[] id) {
+		this.library.tdInit();
 		
+		this.library.tdClose();
 	}
 	
 	/**
