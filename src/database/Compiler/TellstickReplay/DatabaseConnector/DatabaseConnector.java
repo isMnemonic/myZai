@@ -35,7 +35,7 @@ public class DatabaseConnector {
 		this.setUrl("jdbc:mysql://192.168.1.1:3306/TellstickReplay");
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			this.connection = DriverManager.getConnection(this.url);
+			this.connection = DriverManager.getConnection(this.url, this.uid, this.pwd);
 		} catch (ClassNotFoundException e) {
 			// TODO : Update logging
 			e.printStackTrace();

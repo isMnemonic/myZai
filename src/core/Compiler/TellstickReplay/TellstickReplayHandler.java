@@ -56,6 +56,7 @@ public class TellstickReplayHandler {
 		 */
 		try{
 			this.setScheduler(new TellstickScheduler(this.library));
+			System.out.println("Done preparing scheduler.");
 		}
 		catch( Exception e ){
 			System.out.println( e );
@@ -66,6 +67,7 @@ public class TellstickReplayHandler {
 		 */
 		try{
 			Endpoint.publish("http://localhost:9090/TellstickReplay", new TellstickReplayWebService(this.library));
+			System.out.println("Done publishing web service.");
 		}
 		catch( Exception e ){
 			System.out.println( e );
