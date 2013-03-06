@@ -3,7 +3,9 @@ package Compiler.TellstickReplay;
 import Compiler.TellstickReplay.DatabaseConnector.DatabaseConnector;
 import Compiler.TellstickReplay.DatabaseConnector.TellstickReplaySqlQuerys;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Carlo Pelliccia
@@ -70,7 +72,7 @@ public class TellstickScheduler {
 		System.out.println("Init db");											//TODO: Create seperate logging to file.
 		
 		try {
-			List result = this.database.ExecuteQuery(this.querys.getSqlSelectAllSchedules(), TellstickActions.MANAGE_SCHEDULES);
+			Map<Object, ArrayList<String>> result = this.database.ExecuteQuery(this.querys.getSqlSelectAllSchedules(), TellstickActions.MANAGE_SCHEDULES);
 		} catch( Exception e ){
 			System.out.println("Loaded schedules from db");						//TODO: Create seperate logging to file.
 		}

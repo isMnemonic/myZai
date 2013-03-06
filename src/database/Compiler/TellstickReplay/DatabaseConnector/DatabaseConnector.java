@@ -13,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -71,8 +70,8 @@ public class DatabaseConnector {
 	 * @param query : String containing the SQL query.
 	 * @return 'Resultset' with the result from the query execution.
 	 */
-	public List<ArrayList> ExecuteQuery( String query, TellstickActions action ) {
-		List<ArrayList> list = new ArrayList<ArrayList>();
+	public Map<Object,ArrayList<String>> ExecuteQuery( String query, TellstickActions tellstickaction ) {
+		Map<Object,ArrayList<String>> list = new HashMap<Object,ArrayList<String>>();
 		Statement statement = null;
 		ResultSet result = null;
 		try {
@@ -85,10 +84,30 @@ public class DatabaseConnector {
 		}
 		
 		try {
-			switch(action){
+			switch(tellstickaction){
 			case MANAGE_SCHEDULES:
 				System.out.println("Manage schedules.");
-				list.
+				while(result.next()){
+					ArrayList<String> row = new ArrayList<String>();
+					
+					String object_id = String.valueOf((result.getInt("object_id")));
+					//System.out.println(object_id);
+					row.add(object_id);
+					
+					String task = result.getString("task");
+					//System.out.println(task);
+					row.add(task);
+					
+					String action = result.getString("action");
+					//System.out.println(action);
+					row.add(action);
+					
+					String value = String.valueOf(result.getInt("value"));
+					//System.out.println(value);
+					row.add(value);
+					
+					list.put(new Integer(result.getRow()), row);
+				}
 				break;
 			default:
 				break;
