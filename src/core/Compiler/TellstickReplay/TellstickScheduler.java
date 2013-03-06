@@ -2,6 +2,8 @@ package Compiler.TellstickReplay;
 
 import Compiler.TellstickReplay.DatabaseConnector.DatabaseConnector;
 import Compiler.TellstickReplay.DatabaseConnector.TellstickReplaySqlQuerys;
+import java.sql.ResultSet;
+import java.util.List;
 
 /**
  * @author Carlo Pelliccia
@@ -32,7 +34,7 @@ public class TellstickScheduler {
 		//in the gui´s and they will be responseable for writing configuration files to check
 		//if a Replay mode has been enabled/configured.
 		
-		this.setQuerys(new TellstickReplaySqlQuerys());
+		this.querys = new TellstickReplaySqlQuerys();
 		
 		System.out.println("Creating new schedule.");							//TODO: Create seperate logging to file.
 		Scheduler _scheduler = new Scheduler();
@@ -66,6 +68,12 @@ public class TellstickScheduler {
 		System.out.println("Initated TellstickScheduler();");					//TODO: Create seperate logging to file.
 		this.setDatabase(new DatabaseConnector());
 		System.out.println("Init db");											//TODO: Create seperate logging to file.
+		
+		try {
+			List result = this.database.ExecuteQuery(this.querys.getSqlSelectAllSchedules(), TellstickActions.MANAGE_SCHEDULES);
+		} catch( Exception e ){
+			System.out.println("Loaded schedules from db");						//TODO: Create seperate logging to file.
+		}
 	}
 	
 	/**

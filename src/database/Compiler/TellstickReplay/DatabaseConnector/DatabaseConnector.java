@@ -11,6 +11,13 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+import Compiler.TellstickReplay.TellstickActions;
 
 /**
  * @author Per Fransman
@@ -36,11 +43,13 @@ public class DatabaseConnector {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connection = DriverManager.getConnection(this.url, this.uid, this.pwd);
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException cnfe) {
 			// TODO : Update logging
-			e.printStackTrace();
-		} catch (SQLException e) {
+			cnfe.printStackTrace();
+		} catch (SQLException se) {
 			// TODO Auto-generated catch block
+			se.printStackTrace();
+		} catch( Exception e ) {
 			e.printStackTrace();
 		}
 	}
@@ -62,7 +71,8 @@ public class DatabaseConnector {
 	 * @param query : String containing the SQL query.
 	 * @return 'Resultset' with the result from the query execution.
 	 */
-	public ResultSet ExecuteQuery( String query ) {
+	public List<ArrayList> ExecuteQuery( String query, TellstickActions action ) {
+		List<ArrayList> list = new ArrayList<ArrayList>();
 		Statement statement = null;
 		ResultSet result = null;
 		try {
@@ -73,7 +83,29 @@ public class DatabaseConnector {
 			//throw e;
 			System.out.println( e );
 		}
-		return result;
+		
+		try {
+			switch(action){
+			case MANAGE_SCHEDULES:
+				System.out.println("Manage schedules.");
+				list.
+				break;
+			default:
+				break;
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 	/**

@@ -23,7 +23,7 @@ public class ActionEvent extends java.util.EventObject {
 	public ActionEvent(Object source, TellstickActions action, TellstickDevice device, Object value) {
 		super(source);
 		this.action = action;
-		this.setDevice(device);
+		this.device = device;
 		this.value = value;
 	}
 	
