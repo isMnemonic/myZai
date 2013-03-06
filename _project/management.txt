@@ -5,17 +5,18 @@ Priorities:
 * compile project into jar file on RPi	- confirmed.
 	* test run - confirmed.
 
-* review the database structe: iniated. almost done.
-	* add complete test data: implementing. almost done.
+* review the database structe: done. ground structure complete. revisions occurs.
+	* add complete test data: done.
 
 * schedule management: class structure done. task management
 			and enum types done. read from database: ongoing.
 	* add sql statements:
-		* select/update: iniated.
+		* select/update: iniated. all select querys almost done. no update querys done.
 		* delete: todo
 
 * add schema with minimum of three commands to tellstick
-	* test run: confirmed! Finally!!
+	* test run: confirmed.
+* load schemas loaded from database: ongoing
 
 * collect data from sql database: implementing.
 * construct status/priotize : todo

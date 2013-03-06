@@ -18,12 +18,16 @@ own hardware and prefered operating system. Tellstick Replay¡ will come in diffe
 
 
 Custom Hardware
-Soon to come™
+Tellstick Replay is primarly running on ARM hardware due to its being developed for the Raspberry Pi but since its running
+on JAVA it will run on all available platforms JAVA can support. For custom hardware this is 
 
 
 Installation procedure
+
 Soon to come™
 
 
 Hardware Projects
-Soon to come™
+Most of the products available for home automation are lightbulbs and electrical switches the most common and comes in a few
+formats aswell. Compiler will be developing its own hardware to use in joncuntion with Tellstick devices. Plans are for a
+custom weather station featuring basic light/sun radiation recognition and tempature measurements.
