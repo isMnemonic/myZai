@@ -7,10 +7,10 @@ package Compiler.TellstickReplay;
 public class TellstickDevice {
 	private final int id;
 	private String title;
-	private final String model;
-	private final String protocol;
+	private String model;
+	private String protocol;
 	private String description;
-	private final TellstickActions[] supported;
+	private TellstickActions[] supported;
 	
 	public TellstickDevice( int _id, String _title, String _model, String _protocol, String _description, TellstickActions[] _supported ) {
 		this.id = _id;

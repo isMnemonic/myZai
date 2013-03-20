@@ -2,10 +2,11 @@ package Compiler.TellstickReplay;
 
 import Compiler.TellstickReplay.DatabaseConnector.DatabaseConnector;
 import Compiler.TellstickReplay.DatabaseConnector.TellstickReplaySqlQuerys;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * @author Carlo Pelliccia
@@ -56,16 +57,6 @@ public class TellstickScheduler {
 					});
 		System.out.println("Setting schedule.");								//TODO: Create seperate logging to file.
 		
-		try {
-			_scheduler.schedule("27 22 * * 1-5", new TellstickScheduleTask(this.library, new ActionEvent(this, TellstickActions.DIM, device, new Byte("10"))));
-			_scheduler.start();
-			System.out.println("Starting schedule.");							//TODO: Create seperate logging to file.
-		} catch( RuntimeException rte ) {
-			System.out.println("Eexception: " + rte.getMessage() );				//TODO: Create seperate logging to file.
-		} catch( Exception e ) {
-			System.out.println("Undefined exception.\r\n" + e.getMessage() );	//TODO: Create seperate logging to file.
-		}
-		
 		this.setTellstickSchedule(_scheduler);
 		System.out.println("Initated TellstickScheduler();");					//TODO: Create seperate logging to file.
 		this.setDatabase(new DatabaseConnector());
@@ -73,8 +64,47 @@ public class TellstickScheduler {
 		
 		try {
 			Map<Object, ArrayList<String>> result = this.database.ExecuteQuery(this.querys.getSqlSelectAllSchedules(), TellstickActions.MANAGE_SCHEDULES);
+			Set<Entry<Object, ArrayList<String>>> set = result.entrySet();
+			Iterator<Entry<Object, ArrayList<String>>> iterate = set.iterator();
+			while( iterate.hasNext()) {
+				Map.Entry<Object, ArrayList<String>> me = (Map.Entry<Object, ArrayList<String>>)iterate.next();
+				Integer row_id = (Integer)me.getKey();
+				ArrayList<String> values = (ArrayList<String>)me.getValue();
+				String task = null;
+				TellstickActions action = null;
+				String level = null;
+				Integer count = 0;
+				for(String value : values ){
+					if(count == 0 ) {
+						task = value;
+					}else if(count == 1) {
+						if( value == "DIM") {
+							action = TellstickActions.DIM;
+						}else if( value == "TURNON" ) {
+							action = TellstickActions.TURNON;
+						}else if( value == "TURNOFF" ){
+							action = TellstickActions.TURNOFF;
+						}
+					}else if(count == 2) {
+						level = value;
+					}else {
+						try {
+							System.out.println("Setting new schedule.");
+							_scheduler.schedule(task, new TellstickScheduleTask(this.library, new ActionEvent(this, action, device, new Byte(level))));
+						} catch( RuntimeException rte ) {
+							System.out.println("Eexception: " + rte.getMessage() );				//TODO: Create seperate logging to file.
+						} catch( Exception e ) {
+							System.out.println("Undefined exception.\r\n" + e.getMessage() );	//TODO: Create seperate logging to file.
+						}
+					}
+					count++;
+				}
+			}
 		} catch( Exception e ){
 			System.out.println("Loaded schedules from db");						//TODO: Create seperate logging to file.
+		} finally {
+			System.out.println("Starting schedule.");							//TODO: Create seperate logging to file.
+			_scheduler.start();
 		}
 	}
 	

@@ -89,23 +89,9 @@ public class DatabaseConnector {
 				System.out.println("Manage schedules.");
 				while(result.next()){
 					ArrayList<String> row = new ArrayList<String>();
-					
-					String object_id = String.valueOf((result.getInt("object_id")));
-					//System.out.println(object_id);
-					row.add(object_id);
-					
-					String task = result.getString("task");
-					//System.out.println(task);
-					row.add(task);
-					
-					String action = result.getString("action");
-					//System.out.println(action);
-					row.add(action);
-					
-					String value = String.valueOf(result.getInt("value"));
-					//System.out.println(value);
-					row.add(value);
-					
+					String task = result.getString("task"); row.add(task);
+					String action = result.getString("action"); row.add(action);
+					String value = String.valueOf(result.getInt("value")); row.add(value);
 					list.put(new Integer(result.getRow()), row);
 				}
 				break;

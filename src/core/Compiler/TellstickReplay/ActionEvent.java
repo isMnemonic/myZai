@@ -10,11 +10,6 @@ import Compiler.TellstickReplay.TellstickActions;
  *
  */
 public class ActionEvent extends java.util.EventObject {
-
-	/**
-	 * Variable: 'serialVersionUI'.
-	 */
-	private static final long serialVersionUID = -7670618960929740778L;
 	
 	private TellstickActions action = null;
 	private TellstickDevice device = null;
