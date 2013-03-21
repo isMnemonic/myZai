@@ -95,6 +95,13 @@ public class DatabaseConnector {
 					list.put(new Integer(result.getRow()), row);
 				}
 				break;
+			case MANAGE_DEVICES:
+				System.out.println("Manage devices.");
+				while(result.next()){
+					ArrayList<String> row = new ArrayList<String>();
+					
+				}
+				break;
 			default:
 				break;
 			}
