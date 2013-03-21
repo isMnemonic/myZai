@@ -42,8 +42,15 @@ public class TellstickScheduler {
 		System.out.println("Creating new schedule.");							//TODO: Create seperate logging to file.
 		Scheduler _scheduler = new Scheduler();
 		this.library = library;
-		System.out.println("Creating new tellstick device.");					//TODO: Create seperate logging to file.
-		TellstickDevice device = new TellstickDevice(
+		System.out.println("Creating tellstick device(s).");					//TODO: Create seperate logging to file.
+		try {
+			Map<Object, ArrayList<String>> result = this.database.ExecuteQuery(this.querys.getSqlSelectAllDevices(), TellstickActions.MANAGE_DEVICES);
+			
+		}catch( Exception e ){
+			System.out.println("Problem creating device(s)." + "\n\r" + e.getMessage());						//TODO: Create seperate logging to file.
+		}
+		
+		/*TellstickDevice device = new TellstickDevice(
 				3,
 				"Nexa: Floorlamp: Left",
 				"selflearning-dimmer:nexa",
@@ -54,14 +61,15 @@ public class TellstickScheduler {
 						TellstickActions.DIMLEVEL,
 						TellstickActions.TURNOFF,
 						TellstickActions.TURNON
-					});
-		System.out.println("Setting schedule.");								//TODO: Create seperate logging to file.
+					});*/
 		
-		this.setTellstickSchedule(_scheduler);
-		System.out.println("Initated TellstickScheduler();");					//TODO: Create seperate logging to file.
+		
 		this.setDatabase(new DatabaseConnector());
 		System.out.println("Init db");											//TODO: Create seperate logging to file.
 		
+		System.out.println("Initated TellstickScheduler();");					//TODO: Create seperate logging to file.
+		System.out.println("Setting schedule.");								//TODO: Create seperate logging to file.
+		this.setTellstickSchedule(_scheduler);
 		try {
 			Map<Object, ArrayList<String>> result = this.database.ExecuteQuery(this.querys.getSqlSelectAllSchedules(), TellstickActions.MANAGE_SCHEDULES);
 			Set<Entry<Object, ArrayList<String>>> set = result.entrySet();
@@ -99,6 +107,7 @@ public class TellstickScheduler {
 					}
 					count++;
 				}
+				result = null;
 			}
 		} catch( Exception e ){
 			System.out.println("Loaded schedules from db");						//TODO: Create seperate logging to file.

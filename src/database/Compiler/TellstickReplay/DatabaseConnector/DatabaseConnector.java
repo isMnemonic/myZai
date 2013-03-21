@@ -89,9 +89,12 @@ public class DatabaseConnector {
 				System.out.println("Manage schedules.");
 				while(result.next()){
 					ArrayList<String> row = new ArrayList<String>();
-					String task = result.getString("task"); row.add(task);
-					String action = result.getString("action"); row.add(action);
-					String value = String.valueOf(result.getInt("value")); row.add(value);
+					String task = result.getString("task");
+					row.add(task);
+					String action = result.getString("action");
+					row.add(action);
+					String value = String.valueOf(result.getInt("value"));
+					row.add(value);
 					list.put(new Integer(result.getRow()), row);
 				}
 				break;
@@ -99,7 +102,17 @@ public class DatabaseConnector {
 				System.out.println("Manage devices.");
 				while(result.next()){
 					ArrayList<String> row = new ArrayList<String>();
-					
+					String id = String.valueOf(result.getInt("id"));
+					row.add(id);
+					String title = result.getString("title");
+					row.add(title);
+					String protocol = result.getString("protocol");
+					row.add(protocol);
+					String model = result.getString("model");
+					row.add(model);
+					String supported = result.getString("supported");
+					row.add(supported);
+					list.put(new Integer(result.getRow()), row);
 				}
 				break;
 			default:
