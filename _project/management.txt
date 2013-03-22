@@ -7,6 +7,8 @@ Priorities:
 
 * review the database structe: done. ground structure complete. revisions occurs.
 	* add complete test data: done.
+	* add donnection table for supported actions to table: device: ongoing.
+		* create sql create/select/update statements: todo
 
 * schedule management: class structure done. task management
 			and enum types done. read from database: ongoing.

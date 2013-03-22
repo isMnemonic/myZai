@@ -9,15 +9,13 @@ public class TellstickDevice {
 	private String title;
 	private String model;
 	private String protocol;
-	private String description;
 	private TellstickActions[] supported;
 	
-	public TellstickDevice( int _id, String _title, String _model, String _protocol, String _description, TellstickActions[] _supported ) {
+	public TellstickDevice( int _id, String _title, String _protocol, String _model, TellstickActions[] _supported ) {
 		this.id = _id;
 		this.title = _title;
-		this.model = _model;
 		this.protocol = _protocol;
-		this.description = _description;
+		this.model = _model;
 		this.supported = _supported;
 	}
 	
@@ -39,14 +37,6 @@ public class TellstickDevice {
 	
 	public String getProtocol() {
 		return protocol;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 	public TellstickActions[] getSupported() {

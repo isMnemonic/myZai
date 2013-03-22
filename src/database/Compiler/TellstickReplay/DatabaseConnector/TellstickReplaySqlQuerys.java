@@ -33,8 +33,7 @@ public class TellstickReplaySqlQuerys {
 	/**
 	 * SQL Query: Selects all schedules.
 	 */
-	private String sqlSelectAllSchedules ="SELECT cyxl_schedule.task, cyxl_action.action, cyxl_schedule.value FROM cyxl_schedule, cyxl_action, cyxl_device where cyxl_schedule.action_id = cyxl_action.id and cyxl_device.id = cyxl_schedule.object_id;";
-	//private String sqlSelectAllSchedules ="SELECT cyxl_device.id, cyxl_device.title, cyxl_device.model, cyxl_device.protocol, cyxl_device.description, cyxl_schedule.task, cyxl_action.action, cyxl_schedule.value FROM cyxl_schedule, cyxl_action, cyxl_device where cyxl_schedule.action_id = cyxl_action.id and cyxl_device.id = cyxl_schedule.object_id ORDER BY cyxl_device.id;";
+	private String sqlSelectAllSchedules ="SELECT cyxl_device.id, cyxl_schedule.task, cyxl_action.action, cyxl_schedule.value FROM cyxl_schedule, cyxl_action, cyxl_device where cyxl_schedule.action_id = cyxl_action.id and cyxl_device.id = cyxl_schedule.object_id;";
 	
 	/**
 	 * SQL Query: Selects all devices with its corresponding schedules.

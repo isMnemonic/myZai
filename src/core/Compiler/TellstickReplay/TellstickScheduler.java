@@ -22,12 +22,13 @@ public class TellstickScheduler {
 	
 	
 	/**
-	 * 
+	 *  Local variables.
 	 */
 	private Scheduler tellstickSchedule = null;
 	private TellstickLibrary library = null;
 	private DatabaseConnector database = null;
 	private TellstickReplaySqlQuerys querys = null;
+	private ArrayList<TellstickDevice> devices = new ArrayList<TellstickDevice>();
 	
 	/**
 	 * Main constructor. Initiates a new Scheduler object with default configuration.
@@ -37,39 +38,52 @@ public class TellstickScheduler {
 		//in the gui´s and they will be responseable for writing configuration files to check
 		//if a Replay mode has been enabled/configured.
 		
+		System.out.println("Initializing database connection.");				//TODO: Create seperate logging to file.
+		this.database = new DatabaseConnector();
+		System.out.println("Creating SQL Querys.");								//TODO: Create seperate logging to file.
 		this.querys = new TellstickReplaySqlQuerys();
 		
-		System.out.println("Creating new schedule.");							//TODO: Create seperate logging to file.
-		Scheduler _scheduler = new Scheduler();
 		this.library = library;
-		System.out.println("Creating tellstick device(s).");					//TODO: Create seperate logging to file.
+		
+		System.out.println("Creating new schedule manager.");					//TODO: Create seperate logging to file.
+		this.tellstickSchedule = new Scheduler();
+		
+		System.out.println("Creating automation device(s).");					//TODO: Create seperate logging to file.
 		try {
 			Map<Object, ArrayList<String>> result = this.database.ExecuteQuery(this.querys.getSqlSelectAllDevices(), TellstickActions.MANAGE_DEVICES);
-			
+			Set<Entry<Object, ArrayList<String>>> set = result.entrySet();
+			Iterator<Entry<Object, ArrayList<String>>> iterate = set.iterator();
+			while( iterate.hasNext()) {
+				Map.Entry<Object, ArrayList<String>> me = (Map.Entry<Object, ArrayList<String>>)iterate.next();
+				Integer row_id = (Integer)me.getKey();
+				ArrayList<String> values = (ArrayList<String>)me.getValue();
+				Integer id = null;
+				String title = null;
+				String protocol = null;
+				String model = null;
+				String supported = null;
+				Integer count = 0;
+				for(String value : values ) {
+					if( count == 0 ){
+						id = Integer.valueOf(value);
+					}else if( count == 1 ) {
+						title = value;
+					}else if( count == 2 ) {
+						protocol = value;
+					}else if( count == 3 ) {
+						model = value;
+					}else if( count == 4 ) {
+						supported = value;
+					}else {
+						devices.add(new TellstickDevice(id, title, protocol, model, new TellstickActions[]{ TellstickActions.TURNON, TellstickActions.TURNOFF } ));
+					}					
+					count++;
+				}
+			}
 		}catch( Exception e ){
-			System.out.println("Problem creating device(s)." + "\n\r" + e.getMessage());						//TODO: Create seperate logging to file.
+			System.out.println("Problem creating automation device(s):" + "\n\r" + e.getMessage());						//TODO: Create seperate logging to file.
 		}
 		
-		/*TellstickDevice device = new TellstickDevice(
-				3,
-				"Nexa: Floorlamp: Left",
-				"selflearning-dimmer:nexa",
-				"arctech",
-				"description",
-				new TellstickActions[]{
-						TellstickActions.DIM,
-						TellstickActions.DIMLEVEL,
-						TellstickActions.TURNOFF,
-						TellstickActions.TURNON
-					});*/
-		
-		
-		this.setDatabase(new DatabaseConnector());
-		System.out.println("Init db");											//TODO: Create seperate logging to file.
-		
-		System.out.println("Initated TellstickScheduler();");					//TODO: Create seperate logging to file.
-		System.out.println("Setting schedule.");								//TODO: Create seperate logging to file.
-		this.setTellstickSchedule(_scheduler);
 		try {
 			Map<Object, ArrayList<String>> result = this.database.ExecuteQuery(this.querys.getSqlSelectAllSchedules(), TellstickActions.MANAGE_SCHEDULES);
 			Set<Entry<Object, ArrayList<String>>> set = result.entrySet();
@@ -78,14 +92,17 @@ public class TellstickScheduler {
 				Map.Entry<Object, ArrayList<String>> me = (Map.Entry<Object, ArrayList<String>>)iterate.next();
 				Integer row_id = (Integer)me.getKey();
 				ArrayList<String> values = (ArrayList<String>)me.getValue();
+				Integer id = 0;
 				String task = null;
 				TellstickActions action = null;
-				String level = null;
+				Byte level = null;
 				Integer count = 0;
 				for(String value : values ){
 					if(count == 0 ) {
+						id = Integer.valueOf(value);
+					}else if( count == 1) {
 						task = value;
-					}else if(count == 1) {
+					}else if(count == 2) {
 						if( value == "DIM") {
 							action = TellstickActions.DIM;
 						}else if( value == "TURNON" ) {
@@ -93,12 +110,12 @@ public class TellstickScheduler {
 						}else if( value == "TURNOFF" ){
 							action = TellstickActions.TURNOFF;
 						}
-					}else if(count == 2) {
-						level = value;
+					}else if(count == 3) {
+						level = Byte.valueOf(value);
 					}else {
 						try {
 							System.out.println("Setting new schedule.");
-							_scheduler.schedule(task, new TellstickScheduleTask(this.library, new ActionEvent(this, action, device, new Byte(level))));
+							this.tellstickSchedule.schedule(task, new TellstickScheduleTask(this.library, new ActionEvent(this, action, this.devices.get(id), level)));
 						} catch( RuntimeException rte ) {
 							System.out.println("Eexception: " + rte.getMessage() );				//TODO: Create seperate logging to file.
 						} catch( Exception e ) {
@@ -110,10 +127,10 @@ public class TellstickScheduler {
 				result = null;
 			}
 		} catch( Exception e ){
-			System.out.println("Loaded schedules from db");						//TODO: Create seperate logging to file.
+			System.out.println("Problem creating schedule(s): " + "\n\r" + e.getMessage());						//TODO: Create seperate logging to file.
 		} finally {
 			System.out.println("Starting schedule.");							//TODO: Create seperate logging to file.
-			_scheduler.start();
+			this.tellstickSchedule.start();
 		}
 	}
 	

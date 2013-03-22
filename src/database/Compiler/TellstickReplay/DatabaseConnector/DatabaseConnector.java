@@ -89,6 +89,8 @@ public class DatabaseConnector {
 				System.out.println("Manage schedules.");
 				while(result.next()){
 					ArrayList<String> row = new ArrayList<String>();
+					String id = String.valueOf(result.getInt("id"));
+					row.add(id);
 					String task = result.getString("task");
 					row.add(task);
 					String action = result.getString("action");
