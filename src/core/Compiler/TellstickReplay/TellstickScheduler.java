@@ -55,13 +55,12 @@ public class TellstickScheduler {
 			Iterator<Entry<Object, ArrayList<String>>> iterate = set.iterator();
 			while( iterate.hasNext()) {
 				Map.Entry<Object, ArrayList<String>> me = (Map.Entry<Object, ArrayList<String>>)iterate.next();
-				Integer row_id = (Integer)me.getKey();
 				ArrayList<String> values = (ArrayList<String>)me.getValue();
 				Integer id = null;
 				String title = null;
 				String protocol = null;
 				String model = null;
-				String supported = null;
+				//String supported = null;
 				Integer count = 0;
 				for(String value : values ) {
 					if( count == 0 ){
@@ -73,7 +72,7 @@ public class TellstickScheduler {
 					}else if( count == 3 ) {
 						model = value;
 					}else if( count == 4 ) {
-						supported = value;
+						//supported = value;
 					}else {
 						devices.add(new TellstickDevice(id, title, protocol, model, new TellstickActions[]{ TellstickActions.TURNON, TellstickActions.TURNOFF } ));
 					}					
@@ -85,12 +84,12 @@ public class TellstickScheduler {
 		}
 		
 		try {
+			System.out.println("Loading schedules from database.");
 			Map<Object, ArrayList<String>> result = this.database.ExecuteQuery(this.querys.getSqlSelectAllSchedules(), TellstickActions.MANAGE_SCHEDULES);
 			Set<Entry<Object, ArrayList<String>>> set = result.entrySet();
 			Iterator<Entry<Object, ArrayList<String>>> iterate = set.iterator();
 			while( iterate.hasNext()) {
 				Map.Entry<Object, ArrayList<String>> me = (Map.Entry<Object, ArrayList<String>>)iterate.next();
-				Integer row_id = (Integer)me.getKey();
 				ArrayList<String> values = (ArrayList<String>)me.getValue();
 				Integer id = 0;
 				String task = null;
@@ -100,18 +99,24 @@ public class TellstickScheduler {
 				for(String value : values ){
 					if(count == 0 ) {
 						id = Integer.valueOf(value);
+						System.out.println(value);
 					}else if( count == 1) {
 						task = value;
+						System.out.println(value);
 					}else if(count == 2) {
-						if( value == "DIM") {
+						if( value.equals("DIM") ) {
 							action = TellstickActions.DIM;
-						}else if( value == "TURNON" ) {
+							System.out.println(value);
+						}else if( value.equals("TURNON") ) {
 							action = TellstickActions.TURNON;
-						}else if( value == "TURNOFF" ){
+							System.out.println(value);
+						}else if( value.equals("TURNOFF") ){
 							action = TellstickActions.TURNOFF;
+							System.out.println(value);
 						}
 					}else if(count == 3) {
 						level = Byte.valueOf(value);
+						System.out.println(value);
 					}else {
 						try {
 							System.out.println("Setting new schedule.");
