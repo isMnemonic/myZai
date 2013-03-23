@@ -28,7 +28,8 @@ Priorities:
 * implement basic webservice : todo
 * construct xbmc plugin : todo
 * design and implement website administration : todo
-
+* design and implement date handling for schedules based on status: todo
+* design and implement installation script: todo
 
 Todo:
 * install telldus core on RPi - confirmed.
@@ -39,3 +40,4 @@ Todo:
 * removed previous codes in ceiling lamp in hallway with new - confirmed.
 * reinstalled nexa switches - all switches clean and installed - confirmed.
 * installed apache2 and tomcat7 on RPi - confirmed.
+* test installation script: todo

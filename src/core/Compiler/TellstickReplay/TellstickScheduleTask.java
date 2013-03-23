@@ -27,7 +27,7 @@ public class TellstickScheduleTask extends Task {
 	}
 	
 	/**
-	 * 
+	 * Overridden 'execute'. Handles all schedule tasks based actions.
 	 */
 	@Override
 	public void execute(TaskExecutionContext arg0) throws RuntimeException {
@@ -61,7 +61,7 @@ public class TellstickScheduleTask extends Task {
 	 * @param id
 	 * @return 'boolean' value of 'true' if the supplied 'id' has the 
 	 */
-	public boolean CheckDeviceFeatures( int id ){
+	private boolean CheckDeviceFeatures( int id ){
 		boolean value = false;
 		try {
 			
@@ -82,7 +82,7 @@ public class TellstickScheduleTask extends Task {
 	 * @return 'boolean' value of 'true' if the device was succesfully dimmed to the applied level or
 	 * 'false' if it was unable to dim the device.
 	 */
-	public boolean DimDeviceById( int id, byte level ) {
+	private boolean DimDeviceById( int id, byte level ) {
 		boolean value = false;
 		try {
 			System.out.println("Executing Tellstick action: Dim");
@@ -106,7 +106,7 @@ public class TellstickScheduleTask extends Task {
 	 * @return 'boolean' value of 'true' if the group was succesfully dimmed to the applied level or
 	 * 'false' if it was unable to dim the group.
 	 */
-	public boolean DimDeviceByGroup( String name, int level ) {
+	private boolean DimDeviceByGroup( String name, int level ) {
 		boolean value = false;
 		try {
 			
@@ -126,7 +126,7 @@ public class TellstickScheduleTask extends Task {
 	 * @return: 'boolean' value of 'true' if the device was successfully turned off or 
 	 * 'false' if it was unable to turn the device off.
 	 */
-	public boolean TurnDeviceOffById( int id ){
+	private boolean TurnDeviceOffById( int id ){
 		boolean value = false;
 		try {
 			System.out.println("Executing Tellstick action: Turn off.");
@@ -149,7 +149,7 @@ public class TellstickScheduleTask extends Task {
 	 * @param id The device ID to used for identifing correct device.
 	 * @return A 'boolean' value will be return 'true' for being turned on and 'false' for failure.
 	 */
-	public boolean TurnDeviceOnById( int id ){
+	private boolean TurnDeviceOnById( int id ){
 		boolean value = false;
 		try {
 			System.out.println("Executing Tellstick action: Turn on");
