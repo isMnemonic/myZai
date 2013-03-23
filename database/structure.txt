@@ -37,6 +37,11 @@ Table: 	action
 Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY :				row id & primary key.
 		action 		VARCHAR(25) | NOT NULL :									the name of the action.
 
+Table:	device_actions( connection table for supported actions on devices. )
+Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY :				row id & primary key.
+		device_id	INT | NOT NULL :											id of device.
+		action_id	INT | NOT NULL :											id of action
+
 Table:	status
 Fields:	id 			INT | NOT NULL | AUTO_INCREMENT | UNIQUE KEY : 				row id & primary key.
 		name		VARCHAR(25) | NOT NULL : 									Name of the status flag.
