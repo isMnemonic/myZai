@@ -19,6 +19,7 @@ public class Core {
 	 */
 	public static void main(String[] args) {
 		try {
+			System.out.println("Initiatin Tellstick Replay Core.");
 			String _system = System.getProperty("os.name");
 			_system = _system.replaceAll("\\s","");
 			TellstickSystems os = TellstickSystems.valueOf( _system );

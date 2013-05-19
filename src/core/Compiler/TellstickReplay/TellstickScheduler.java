@@ -40,9 +40,11 @@ public class TellstickScheduler {
 		
 		System.out.println("Initializing database connection.");				//TODO: Create seperate logging to file.
 		this.database = new DatabaseConnector();
+		
 		System.out.println("Creating SQL Querys.");								//TODO: Create seperate logging to file.
 		this.querys = new TellstickReplaySqlQuerys();
 		
+		System.out.println("Setting Tellstick library.");
 		this.library = library;
 		
 		System.out.println("Creating new schedule manager.");					//TODO: Create seperate logging to file.
@@ -83,8 +85,8 @@ public class TellstickScheduler {
 			System.out.println("Problem creating automation device(s):" + "\n\r" + e.getMessage());						//TODO: Create seperate logging to file.
 		}
 		
+		System.out.println("Loading schedules from database.");
 		try {
-			System.out.println("Loading schedules from database.");
 			Map<Object, ArrayList<String>> result = this.database.ExecuteQuery(this.querys.getSqlSelectAllSchedules(), TellstickActions.MANAGE_SCHEDULES);
 			Set<Entry<Object, ArrayList<String>>> set = result.entrySet();
 			Iterator<Entry<Object, ArrayList<String>>> iterate = set.iterator();

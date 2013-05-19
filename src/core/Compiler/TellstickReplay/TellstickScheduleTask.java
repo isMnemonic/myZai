@@ -32,9 +32,6 @@ public class TellstickScheduleTask extends Task {
 	@Override
 	public void execute(TaskExecutionContext arg0) throws RuntimeException {
 		switch(this.event.getTellstickAction()){
-		case CHECK_DEVICE_FEATURES:
-			
-			break;
 		case DIM:
 			if(!DimDeviceById(this.device.getId(), (Byte)this.event.getValue())) {
 				System.out.println("Device was not dimmed.");
@@ -54,25 +51,6 @@ public class TellstickScheduleTask extends Task {
 			break;
 			
 		}
-	}
-	
-	/**
-	 * Method: Method 'CheckDeviceFeatures' checks supplied device id for supported features.
-	 * @param id
-	 * @return 'boolean' value of 'true' if the supplied 'id' has the 
-	 */
-	private boolean CheckDeviceFeatures( int id ){
-		boolean value = false;
-		try {
-			
-			value = true;
-		}
-		catch( Exception e ){
-			value = false;
-			//throw e;
-			System.out.println( e );
-		}
-		return value;
 	}
 	
 	/**
