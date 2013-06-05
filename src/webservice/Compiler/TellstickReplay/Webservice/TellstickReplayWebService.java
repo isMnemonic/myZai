@@ -31,6 +31,14 @@ public class TellstickReplayWebService {
 	}
 	
 	/**
+	 * Description: External resources whom wants to send in commands.
+	 * @param command
+	 */
+	public void SendCommand(String command) {
+		
+	}
+	
+	/**
 	 * Description: Method 'DimDeviceById'.
 	 * @param id
 	 * @param level

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+        id="script.program.tellstickreplay"
+        version="1.0.1"
+        name="Tellstick Re"
+        provider-name="Per Fransman">
+        <requires>
+                <import addon="xbmc.gui" version="3.0.1" optional="false" />
+        </requires>
+        <extension point="xbmc.service" library="default.py" start="startup"></extension>
+        <extension point="xbmc.addon.metadata">
+                <language></language>
+                <summary>Tellstick Replay Integration</summary>
+                <description>This integrates a custom XBMC player to be able to automatically turn on/off units when pressing play/stop/pause to the configured Tellstick Replay server.</description>
+                <disclaimer>Tellstick Replay is an open source integration with the product(s) from Telldus, all copyright for the name of Tellstick and Telldus along with the product line of Tellstick, belongs to them.</disclaimer>
+                <plattform>all</plattform>
+        </extension>
+</addon>

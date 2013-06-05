@@ -18,6 +18,7 @@ Priorities:
 
 * add schema with minimum of three commands to tellstick
 	* test run: confirmed.
+
 * load schemas loaded from database: ongoing
 
 * collect data from sql database: implementing.
@@ -26,10 +27,20 @@ Priorities:
 * construct schedule.xml from database : todo
 * construct logging to file : todo
 * implement basic webservice : todo
-* construct xbmc plugin : todo
+
+* construct xbmc plugin : ongoing!
+	* create extended xbmc player scritp : done
+	* create python webservice consumer : done. not verified.
+
+* design xbmc gui for TellstickReplay settings : TODO
+	Note: This is to handle the dynamic way of different devices needing to be turned off. The basic will be a small GUI were the user will connect
+	to the TellstickReplay server and choose which units( IDs ) needed to be saved and this will then be transmitted in the xbmc extended player during
+	different playbacks( start, stop, pause etc ).
+
 * design and implement website administration : todo
 * design and implement date handling for schedules based on status: todo
 * design and implement installation script: todo
+
 
 Todo:
 * install telldus core on RPi - confirmed.
@@ -40,4 +51,5 @@ Todo:
 * removed previous codes in ceiling lamp in hallway with new - confirmed.
 * reinstalled nexa switches - all switches clean and installed - confirmed.
 * installed apache2 and tomcat7 on RPi - confirmed.
+* installed python-suds on RPi - confirmed.
 * test installation script: todo
