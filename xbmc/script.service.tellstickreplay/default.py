@@ -4,6 +4,7 @@
 # import the necessary libs
 import xbmc,xbmcgui
 import subprocess,os
+import suds
 
 class TellstickPlayer(xbmc.Player) :
         def __init__ (self):
@@ -23,7 +24,18 @@ class TellstickPlayer(xbmc.Player) :
 
         def onPlayBackResumed(self):
             if xbmc.Player().isPlayingVideo():
+
+
+class Client:
+    """docstring for WebServiceClient"""
+    def __init__(self):
+        self.client = suds.client.Client("http://192.168.1.7:9090/TellstickReplay")
+
+    def SendCommand(self):
+        return self.client.service.SendCommand("DimLivingRoom")
+
 player=TellstickPlayer()
+client = Client()
 
 VIDEO = 0
 
