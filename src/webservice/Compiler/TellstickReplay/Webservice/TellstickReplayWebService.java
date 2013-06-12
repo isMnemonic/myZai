@@ -3,6 +3,7 @@ package Compiler.TellstickReplay.Webservice;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import Compiler.TellstickReplay.TellstickActions;
 import Compiler.TellstickReplay.TellstickLibrary;
 
 /**
@@ -34,8 +35,17 @@ public class TellstickReplayWebService {
 	 * Description: External resources whom wants to send in commands.
 	 * @param command
 	 */
-	public void SendCommand(String command) {
-		
+	public void SendCommand(TellstickActions tellstickaction) {
+		switch(tellstickaction) {
+		case START_WATCHING_MOVIE:
+			break;
+		case PAUSE_WATCHING_MOVIE:
+			break;
+		case STOPPED_WATCHING_MOVIE:
+			break;
+		default:
+			break;
+		}
 	}
 	
 	/**

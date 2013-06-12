@@ -39,6 +39,8 @@ public class TellstickReplaySqlQuerys {
 	 * SQL Query: Selects all devices with its corresponding schedules.
 	 */
 	private String sqlSelectDeviceWithSchedule = "SELECT d.id, d.title, d.protocol, d.model, d.description, d.supported, s.task, s.value, a.action FROM cyxl_device AS d, cyxl_schedule AS s, cyxl_action AS a WHERE d.id = s.object_id AND s.action_id = a.id ORDER BY d.id;";
+	
+	private String sqlSelectActiveStatus = "SELECT id, name FROM cyxl_status WHERE status > 0;";
 
 	/**
 	 * @return the sqlSelectAllDevices
