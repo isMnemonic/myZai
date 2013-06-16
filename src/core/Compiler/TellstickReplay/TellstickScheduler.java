@@ -20,7 +20,6 @@ import it.sauronsoftware.cron4j.Scheduler;
  */
 public class TellstickScheduler {
 	
-	
 	/**
 	 *  Local variables.
 	 */
@@ -29,6 +28,7 @@ public class TellstickScheduler {
 	private DatabaseConnector database = null;
 	private TellstickReplaySqlQuerys querys = null;
 	private ArrayList<TellstickDevice> devices = new ArrayList<TellstickDevice>();
+	private Map<Object, ArrayList<String>> StatusInformation = null;
 	
 	/**
 	 * Main constructor. Initiates a new Scheduler object with default configuration.
@@ -49,6 +49,13 @@ public class TellstickScheduler {
 		
 		System.out.println("Creating new schedule manager.");					//TODO: Create seperate logging to file.
 		this.tellstickSchedule = new Scheduler();
+		
+		System.out.println("Collecting active status.");
+		try{
+			this.StatusInformation = this.database.ExecuteQuery(this.querys.getSqlSelectActiveStatus(), TellstickActions.MANAGE_STATUS);
+		}catch(Exception ex) {
+			System.out.println("Problem managing status.");
+		}
 		
 		System.out.println("Creating automation device(s).");					//TODO: Create seperate logging to file.
 		try {
@@ -101,24 +108,24 @@ public class TellstickScheduler {
 				for(String value : values ){
 					if(count == 0 ) {
 						id = Integer.valueOf(value);
-						System.out.println(value);
+						//System.out.println(value);
 					}else if( count == 1) {
 						task = value;
-						System.out.println(value);
+						//System.out.println(value);
 					}else if(count == 2) {
 						if( value.equals("DIM") ) {
 							action = TellstickActions.DIM;
-							System.out.println(value);
+							//System.out.println(value);
 						}else if( value.equals("TURNON") ) {
 							action = TellstickActions.TURNON;
-							System.out.println(value);
+							//System.out.println(value);
 						}else if( value.equals("TURNOFF") ){
 							action = TellstickActions.TURNOFF;
-							System.out.println(value);
+							//System.out.println(value);
 						}
 					}else if(count == 3) {
 						level = Byte.valueOf(value);
-						System.out.println(value);
+						//System.out.println(value);
 					}else {
 						try {
 							System.out.println("Setting new schedule.");

@@ -40,20 +40,16 @@ public class TellstickReplaySqlQuerys {
 	 */
 	private String sqlSelectDeviceWithSchedule = "SELECT d.id, d.title, d.protocol, d.model, d.description, d.supported, s.task, s.value, a.action FROM cyxl_device AS d, cyxl_schedule AS s, cyxl_action AS a WHERE d.id = s.object_id AND s.action_id = a.id ORDER BY d.id;";
 	
-	private String sqlSelectActiveStatus = "SELECT id, name FROM cyxl_status WHERE status > 0;";
+	/**
+	 * SQL Query: Selects the currently active status.
+	 */
+	private String sqlSelectActiveStatus = "SELECT cyxl_status.id, cyxl_status.name, cyxl_status_prio.status_prio, cyxl_status.action, cyxl_group.id AS group_id FROM cyxl_status, cyxl_status_prio, cyxl_group, cyxl_status_devices_groups WHERE cyxl_status.status = 1 AND cyxl_status.id = cyxl_status_prio.status_id AND cyxl_status.id = cyxl_status_devices_groups.status_id AND cyxl_status_devices_groups.group_id = cyxl_group.id;";
 
 	/**
 	 * @return the sqlSelectAllDevices
 	 */
 	public String getSqlSelectAllDevices() {
 		return sqlSelectAllDevices;
-	}
-
-	/**
-	 * @param sqlSelectAllDevices the sqlSelectAllDevices to set
-	 */
-	public void setSqlSelectAllDevices(String sqlSelectAllDevices) {
-		this.sqlSelectAllDevices = sqlSelectAllDevices;
 	}
 
 	/**
@@ -64,24 +60,10 @@ public class TellstickReplaySqlQuerys {
 	}
 
 	/**
-	 * @param sqlSelectDeviceById the sqlSelectDeviceById to set
-	 */
-	public void setSqlSelectDeviceById(String sqlSelectDeviceById) {
-		this.sqlSelectDeviceById = sqlSelectDeviceById;
-	}
-
-	/**
 	 * @return the sqlSelectSystemInformation
 	 */
 	public String getSqlSelectSystemInformation() {
 		return sqlSelectSystemInformation;
-	}
-
-	/**
-	 * @param sqlSelectSystemInformation the sqlSelectSystemInformation to set
-	 */
-	public void setSqlSelectSystemInformation(String sqlSelectSystemInformation) {
-		this.sqlSelectSystemInformation = sqlSelectSystemInformation;
 	}
 
 	/**
@@ -92,24 +74,10 @@ public class TellstickReplaySqlQuerys {
 	}
 
 	/**
-	 * @param sqlSelectAllGroups the sqlSelectAllGroups to set
-	 */
-	public void setSqlSelectAllGroups(String sqlSelectAllGroups) {
-		this.sqlSelectAllGroups = sqlSelectAllGroups;
-	}
-
-	/**
 	 * @return the sqlSelectAllSchedules
 	 */
 	public String getSqlSelectAllSchedules() {
 		return sqlSelectAllSchedules;
-	}
-
-	/**
-	 * @param sqlSelectAllSchedules the sqlSelectAllSchedules to set
-	 */
-	public void setSqlSelectAllSchedules(String sqlSelectAllSchedules) {
-		this.sqlSelectAllSchedules = sqlSelectAllSchedules;
 	}
 
 	/**
@@ -120,13 +88,9 @@ public class TellstickReplaySqlQuerys {
 	}
 
 	/**
-	 * @param sqlSelectDeviceWithSchedule the sqlSelectDeviceWithSchedule to set
+	 * @return the sqlSelectActiveStatus
 	 */
-	public void setSqlSelectDeviceWithSchedule(String sqlSelectDeviceWithSchedule) {
-		this.sqlSelectDeviceWithSchedule = sqlSelectDeviceWithSchedule;
+	public String getSqlSelectActiveStatus() {
+		return sqlSelectActiveStatus;
 	}
-
-	
-	
-	
 }
