@@ -3,6 +3,12 @@
  */
 package Compiler.TellstickReplay;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import Compiler.TellstickReplay.TellstickActions;
 import it.sauronsoftware.cron4j.*;
 
@@ -16,6 +22,8 @@ public class TellstickScheduleTask extends Task {
 	private TellstickLibrary library = null;
 	private ActionEvent event = null;
 	private TellstickDevice device = null;
+	private boolean StatusActive = false;
+	private Map<Object, ArrayList<String>> StatusInformation = null;
 	
 	/**
 	 * Main constructor.
@@ -33,23 +41,34 @@ public class TellstickScheduleTask extends Task {
 	public void execute(TaskExecutionContext arg0) throws RuntimeException {
 		switch(this.event.getTellstickAction()){
 		case DIM:
-			if(!DimDeviceById(this.device.getId(), (Byte)this.event.getValue())) {
-				System.out.println("Device was not dimmed.");
+			if(!StatusActive){
+				if(!DimDeviceById(this.device.getId(), (Byte)this.event.getValue())) {
+					System.out.println("Device was not dimmed.");
+				}
+			}else {
+				
 			}
 			break;
 		case TURNOFF:
-			if(!TurnDeviceOffById(this.device.getId())) {
-				System.out.println("Device was not turned off.");
+			if(!StatusActive){
+				if(!TurnDeviceOffById(this.device.getId())) {
+					System.out.println("Device was not turned off.");
+				}
+			}else {
+				
 			}
 			break;
 		case TURNON:
-			if( !TurnDeviceOnById(this.device.getId()) ) {
-				System.out.println("Device was not turned on.");
+			if(!StatusActive) {
+				if( !TurnDeviceOnById(this.device.getId()) ) {
+					System.out.println("Device was not turned on.");
+				}
+			}else {
+				
 			}
 			break;
 		default:
 			break;
-			
 		}
 	}
 	
@@ -145,6 +164,19 @@ public class TellstickScheduleTask extends Task {
 		return value;
 	}
 	
+	private void getActiveStatusAction() {
+		Set<Entry<Object, ArrayList<String>>> set = result1.entrySet();
+		Iterator<Entry<Object, ArrayList<String>>> iterate = set.iterator();
+		while( iterate.hasNext() ){
+			Map.Entry<Object, ArrayList<String>> me = (Map.Entry<Object, ArrayList<String>>)iterate.next();
+			ArrayList<String> values = (ArrayList<String>)me.getValue();
+			Integer count = 0;
+			for(String value : values){
+				count++;
+			}
+		}
+	}
+	
 	/**
 	 * Devired constructor. Takes a 'CLibrary' parameter for access to the initated Telldus API.
 	 * @param _clibrary
@@ -167,6 +199,22 @@ public class TellstickScheduleTask extends Task {
 	 */
 	public void setTellstickLibrary(TellstickLibrary library) {
 		this.library = library;
+	}
+	
+	/**
+	 * Method: 'setStatusActive' stores the current state of status which will interupt schedules.
+	 * @param 'value' is a boolean value.
+	 */
+	public void setStatusActive(boolean value) {
+		this.StatusActive = value;
+	}
+	
+	/**
+	 * Method: 'setStatusInformation' stores the Map object holding the current active status information.
+	 * @param 'StatusInformation' is Map<Object, ArrayList<String>> object.
+	 */
+	public void setStatusInformation( Map<Object, ArrayList<String>> StatusInformation ) {
+		this.StatusInformation = StatusInformation;
 	}
 
 }

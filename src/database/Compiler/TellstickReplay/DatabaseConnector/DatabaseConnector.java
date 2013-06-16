@@ -117,6 +117,22 @@ public class DatabaseConnector {
 					list.put(new Integer(result.getRow()), row);
 				}
 				break;
+			case MANAGE_STATUS:
+				System.out.println("Manage Status.");
+				while(result.next()) {
+					ArrayList<String> row = new ArrayList<String>();
+					String id = String.valueOf(result.getInt("id"));
+					row.add(id);
+					String name = result.getString("name");
+					row.add(name);
+					String status_prio = String.valueOf(result.getInt("status_prio"));
+					row.add(status_prio);
+					String action = String.valueOf(result.getInt("action"));
+					row.add(action);
+					String group_id = String.valueOf(result.getInt("group_id"));
+					row.add(group_id);
+					list.put(new Integer(result.getRow()), row);
+				}
 			default:
 				break;
 			}
